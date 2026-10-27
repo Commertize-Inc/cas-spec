@@ -2,6 +2,8 @@
 
 Status: **draft for public review**, spec version `cas-1.0`. Nothing in this document is final until it is tagged `cas-1.0` in this repository. Editor: Commertize, Inc. Licence: CC-BY-4.0 (see `spec/LICENSE`).
 
+Networks: the examples and conformance vectors in this draft use Base Sepolia (chain id 84532), a test network. No mainnet credential contract exists, and this repository publishes no contract address.
+
 The key words MUST, MUST NOT, SHOULD and MAY are used as described in RFC 2119 and RFC 8174.
 
 ## 1. Purpose and scope

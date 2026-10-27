@@ -20,7 +20,7 @@ The specification and code are provided as is, without warranty (see the licence
 import { verify } from "@commertize/cas-verify";
 
 const result = await verify({
-	chainId: 84532,
+	chainId: 84532,                // Base Sepolia (testnet); no mainnet deployment exists
 	contract: "0x...",             // the credential contract
 	trustedIssuers: ["0x..."],     // you choose; there is no default
 	provider,                      // any EIP-1193 provider you trust
