@@ -1,0 +1,101 @@
+# CI for the CAS specification repository.
+#
+# Wording guard, typecheck, and the node:test suites (including the CAS-1
+# verifier conformance vectors, run offline and against an in-process fake
+# provider). Hermetic: no network, no secrets, no deploy, read-only
+# permissions. A conformance badge links to a passing run of the conformance
+# step at a pinned suite version (step "Conformance suite cas-1.0-verifier").
+# Actions pinned by full commit SHA (same pins as Commertize-Inc/agent-kit).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install (frozen lockfile)
+        run: npm ci --ignore-scripts
+
+      - name: Wording guard
+        run: node scripts/check-wording.mjs
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Conformance suite cas-1.0-verifier
+        run: node --conditions=source --experimental-strip-types --test packages/verify-ts/test/conformance.test.ts
+
+      - name: Test
+        run: npm test
+
+  # The committed vector file is generated output:
+  # regenerate it from the fixed public seed and fail on any byte difference.
+  # No install: the generator has no dependencies.
+  vectors:
+    name: vectors
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+
+      - name: Regenerate and compare
+        run: node --experimental-strip-types packages/verify-ts/test/generate-vectors.ts --check
+
+      - name: No byte difference in the tree
+        run: git diff --exit-code -- conformance/vectors
+
+  # Developer Certificate of Origin: every commit in a pull request carries a
+  # Signed-off-by line naming its author (CONTRIBUTING.md). No CLA.
+  dco:
+    name: dco
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+
+      - name: Signed-off-by on every commit
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/check-dco.mjs "$BASE_SHA"

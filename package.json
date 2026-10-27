@@ -1,0 +1,22 @@
+{
+	"name": "commertize-cas-spec",
+	"private": true,
+	"license": "Apache-2.0",
+	"type": "module",
+	"workspaces": ["packages/verify-ts"],
+	"engines": {
+		"node": ">=22.6"
+	},
+	"scripts": {
+		"test": "node --conditions=source --experimental-strip-types --test packages/verify-ts/test/*.test.ts",
+		"typecheck": "tsc -p packages/verify-ts/tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+		"build": "npm run build --workspace @commertize/cas-verify",
+		"vectors": "node --experimental-strip-types packages/verify-ts/test/generate-vectors.ts",
+		"vectors:check": "node --experimental-strip-types packages/verify-ts/test/generate-vectors.ts --check",
+		"check:wording": "node scripts/check-wording.mjs"
+	},
+	"devDependencies": {
+		"@types/node": "22.20.5",
+		"typescript": "5.9.3"
+	}
+}

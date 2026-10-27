@@ -1,0 +1,5773 @@
+{
+	"suite": "cas-1.0-verifier",
+	"spec": "cas-1.0",
+	"note": "Generated from the fixed public seed \"cas-1.0-verifier/conformance-vectors/seed-1\" (packages/verify-ts/test/vector-file.ts). The keys are public by construction, test-only and never funded. Addresses and signatures only.",
+	"vectors": [
+		{
+			"name": "credential-valid",
+			"description": "issued KYA_REGISTERED credential, trusted issuer, not paused",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": true,
+				"reason": "VALID",
+				"step": "done"
+			}
+		},
+		{
+			"name": "mandate-valid",
+			"description": "valid credential plus an anchored mandate whose scope allows the action",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": true,
+				"reason": "VALID",
+				"step": "done"
+			}
+		},
+		{
+			"name": "mandate-valid-no-action",
+			"description": "a mandate without an action checks signature, window and anchor only",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": true,
+				"reason": "VALID",
+				"step": "done"
+			}
+		},
+		{
+			"name": "credential-invalid-id",
+			"description": "the record under the id was issued for another ref: the id does not derive from it",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xd0c1496d9daec5e8f902d20bce6feb42e7036215e38819e6dc4d3cbbddec8b18",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "INVALID_ID",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-inconsistent-state",
+			"description": "live only: the contract's isValid answers false for an issued credential on an unpaused contract; the reads disagree",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"liveReads": {
+					"isValid": false
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "INCONSISTENT_STATE",
+				"step": "credential"
+			},
+			"modes": [
+				"live"
+			]
+		},
+		{
+			"name": "credential-not-found",
+			"description": "no record at the id",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "NOT_FOUND",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-unlinked",
+			"description": "the subject unlinked its credential",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "UNLINKED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "UNLINKED",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-paused",
+			"description": "the contract is paused: nothing is valid",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": true,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "PAUSED",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-paused-revoked",
+			"description": "revocation still reads while paused",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": true,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "MISUSE",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "MISUSE"
+			}
+		},
+		{
+			"name": "credential-untrusted-issuer",
+			"description": "issued by an address the verifier does not trust",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0xAed339BEdaF5d0098F9C8783333248434537659f",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "UNTRUSTED_ISSUER",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-no-trusted-issuers",
+			"description": "an empty trusted-issuer list fails closed",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "NO_TRUSTED_ISSUER",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-subject-mismatch",
+			"description": "the record belongs to another subject",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0xF29ffB1a6DeFEB5817cfE11A8Bd0a79Df4Bc6Daa",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SUBJECT_MISMATCH",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-wrong-kind",
+			"description": "credentialId names a TASK_MANDATE record",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "42456034842925156744490960867141260358045377042921210063267135032578889446950",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "WRONG_KIND",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "credential-wrong-chain",
+			"description": "snapshot taken on another chain",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 1,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "WRONG_CHAIN",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "mandate-wrong-signer",
+			"description": "signed by a key that is not the principal",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0xccc24d82c82aa05d2b5ccbb335e88992c370ccafeec9a67835c5320befd14bd775c760b317284b7c79fb1fc6bd41fa1fb3552adbca2d391cfa9a38e6f122a7641b"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "PRINCIPAL_MISMATCH",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-high-s",
+			"description": "the malleable high-s form of a valid signature is refused",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc97bbd7473321b0ea6e7c2240b09667cab077460b3ad731cf9b829453777b18aa1b"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "BAD_SIGNATURE",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-tampered",
+			"description": "message changed after signing (task class added)",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft",
+								"file"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "PRINCIPAL_MISMATCH",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-wrong-domain-chain",
+			"description": "signed for another chain id",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 1,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0xee4a6889c1ebab772a5a35806808cd660c13c24a0916441513f97ef6162479fe676842980a920967196613a25d12e0dcf3d4d2c8b90bb23b8a9f718a0300f7031b"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "WRONG_DOMAIN",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-wrong-domain-contract",
+			"description": "signed for another verifying contract",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xAed339BEdaF5d0098F9C8783333248434537659f"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x522d21f4e5ba2b16646c737a8f8db84c46c1ef7fa1838e5ff6cb1fd787e82f2c2061ffdd6b2c6ef409bea727fa382d1d905bdf4eadc4e7ebd8e8b9a66e20d41d1c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "WRONG_DOMAIN",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-unsupported-type",
+			"description": "a Mandate type that is not the CAS-1 type",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x2e3d0e3748dcac5aec77748b5c9bef64d3c27aeee7639c768d7fc086beb2a0012e3c1a11eaed8aa79533143ef96ce12f2ced28b14f5f916f1ecfa0d67b0e4fa51c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "UNSUPPORTED_VERSION",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-unsupported-schema",
+			"description": "schema string of another major version",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-2.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x1defdd1f71ff109318e73611e7a053c68f7d918ec44156d15b8525bb24f249a11572de061f14e4f395daa680946e59f063fdc7bcf4d5df185c0eca983c069d491c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "UNSUPPORTED_VERSION",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-spend-cap",
+			"description": "CAS-1.0 mandates carry spendCap 0",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "1",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x109da028ee75d90ecbc48ccbddce8a3c7f970d3b06acf11df9e72dd5689f160506ffa5b8728ad1b4a48e967bcc6bc62045dc40410dcb435d01020e5063f2f1881b"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "UNSUPPORTED_SPEND_CAP",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-not-yet-valid",
+			"description": "before validAfter",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1799996399,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "NOT_YET_VALID",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-expired-at-bound",
+			"description": "validBefore is exclusive",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800003600,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "EXPIRED",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-last-second",
+			"description": "one second before validBefore is inside the window",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800003599,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": true,
+				"reason": "VALID",
+				"step": "done"
+			}
+		},
+		{
+			"name": "scope-task-denied",
+			"description": "task class not granted",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "file",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SCOPE_DENIED",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "scope-asset-denied",
+			"description": "asset class not granted",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "compute",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SCOPE_DENIED",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "scope-counterparty-denied",
+			"description": "counterparty not on the allowlist",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xF29ffB1a6DeFEB5817cfE11A8Bd0a79Df4Bc6Daa"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SCOPE_DENIED",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "scope-amount-denied",
+			"description": "any amount above the cap (0) is denied",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a",
+					"amount": "1"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SCOPE_DENIED",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "scope-empty-lists-grant-nothing",
+			"description": "a mandate with no asset classes or counterparties denies an action that names one",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"58684660312114851559522576449178770995168880591491688060488104426514074612491": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x2dba8797723692a987958e739d73560d79595fecf3cfa30c54fd121e453bbceb",
+							"contentHash": "0x559f5e0001014659e4027b1d9e991c2b600218dd1fa1830e4845a4d13f78b81e"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [],
+							"counterparties": [],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x7a92b36cf4cc8500dcaf6c5ecdc8c477d26af2f70f53c801f106ea0c60e6a368545b6c49a17ba25ca0cd008a88480dcafc72b1f45d42b4e705ff761a104360461b"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SCOPE_DENIED",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-credential-mismatch",
+			"description": "mandate names another credential id",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"55234406132520484734813678867626057504952766337344100958409807457407505282376": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xa63defd62376352ba050231b515bb370b334666ac0d503505371761458fcf1d6",
+							"contentHash": "0x15871f36d5c6a70afd1ecccd8d73993feeb229bde6a4157c451e4ecdafd950c4"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "1",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0xfd971b154edcbccf6d957d4274a86a15e430a65cc3577155d92fe22286a3fb0e7079e72aa4fdfb48adb2dc5ebc11aa734b7e92d69c53791adea3d914da637b831c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "CREDENTIAL_MISMATCH",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "mandate-not-anchored",
+			"description": "signed and in scope but no anchor credential",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_NOT_ANCHORED",
+				"step": "anchor"
+			}
+		},
+		{
+			"name": "mandate-anchor-untrusted",
+			"description": "anchor issued by an untrusted issuer",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0xAed339BEdaF5d0098F9C8783333248434537659f",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "UNTRUSTED_ISSUER",
+				"step": "anchor"
+			}
+		},
+		{
+			"name": "mandate-anchor-wrong-kind",
+			"description": "the record at the anchor id is not a TASK_MANDATE, so the id is not idFor(subject, kind, ref)",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "WORK_ACCEPTED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "INVALID_ID",
+				"step": "anchor"
+			}
+		},
+		{
+			"name": "mandate-anchor-ref-mismatch",
+			"description": "the record at the anchor id carries another ref",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x6eb420a9ebcca465eda7bab71c6d0f3d41df6bf8ad8f43ba8e9f2284e565e578",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "INVALID_ID",
+				"step": "anchor"
+			}
+		},
+		{
+			"name": "mandate-anchor-paused",
+			"description": "a paused contract stops the mandate too",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": true,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "PAUSED",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "mandate-anchor-revoked-while-paused",
+			"description": "a pause is reported as PAUSED, not as the anchor's revocation: the credential step decides first",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": true,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "PAUSED",
+				"step": "credential"
+			}
+		},
+		{
+			"name": "mandate-anchor-unlinked",
+			"description": "the agent unlinked the mandate anchor",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "UNLINKED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor"
+			}
+		},
+		{
+			"name": "mandate-other-agent",
+			"description": "a mandate for another agent, even with an anchor at the subject's id",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"44681678251772597974077824778861703184255706694649845860387766457180443594289": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xbdfe4bdbfc75790ccd2545399af1b0ebdd0385b900d58365826f9ddae2f1d3ea",
+							"contentHash": "0x6c03befb77743c1a6679fb6f9d30f397383816ebda2916e55dcb31206e3e86cc"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0xF29ffB1a6DeFEB5817cfE11A8Bd0a79Df4Bc6Daa",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x41841a02b13e026b6e8280243604f107729d2fcca538283073772dcbdc7220617f66b5cf67c55c20e615a4ac0daff2dbcb298bf673e1c4051723ec152bdcbd141b"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "SUBJECT_MISMATCH",
+				"step": "mandate"
+			}
+		},
+		{
+			"name": "action-without-mandate",
+			"description": "an action needs a mandate",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MALFORMED",
+				"step": "input"
+			}
+		},
+		{
+			"name": "credential-revoked-mandate-ended",
+			"description": "credential revoked with MANDATE_ENDED",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "MANDATE_ENDED"
+			}
+		},
+		{
+			"name": "mandate-revoked-mandate-ended",
+			"description": "mandate anchor revoked with MANDATE_ENDED",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor",
+				"revokeReason": "MANDATE_ENDED"
+			}
+		},
+		{
+			"name": "credential-revoked-kya-lapsed",
+			"description": "credential revoked with KYA_LAPSED",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "KYA_LAPSED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "KYA_LAPSED"
+			}
+		},
+		{
+			"name": "mandate-revoked-kya-lapsed",
+			"description": "mandate anchor revoked with KYA_LAPSED",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "KYA_LAPSED",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor",
+				"revokeReason": "KYA_LAPSED"
+			}
+		},
+		{
+			"name": "credential-revoked-misuse",
+			"description": "credential revoked with MISUSE",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "MISUSE",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "MISUSE"
+			}
+		},
+		{
+			"name": "mandate-revoked-misuse",
+			"description": "mandate anchor revoked with MISUSE",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "MISUSE",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor",
+				"revokeReason": "MISUSE"
+			}
+		},
+		{
+			"name": "credential-revoked-error",
+			"description": "credential revoked with ERROR",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "ERROR",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "ERROR"
+			}
+		},
+		{
+			"name": "mandate-revoked-error",
+			"description": "mandate anchor revoked with ERROR",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "ERROR",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor",
+				"revokeReason": "ERROR"
+			}
+		},
+		{
+			"name": "credential-revoked-holder-request",
+			"description": "credential revoked with HOLDER_REQUEST",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "HOLDER_REQUEST",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "HOLDER_REQUEST"
+			}
+		},
+		{
+			"name": "mandate-revoked-holder-request",
+			"description": "mandate anchor revoked with HOLDER_REQUEST",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "HOLDER_REQUEST",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor",
+				"revokeReason": "HOLDER_REQUEST"
+			}
+		},
+		{
+			"name": "credential-revoked-legal-order",
+			"description": "credential revoked with LEGAL_ORDER",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "REVOKED",
+							"reason": "LEGAL_ORDER",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "REVOKED",
+				"step": "credential",
+				"revokeReason": "LEGAL_ORDER"
+			}
+		},
+		{
+			"name": "mandate-revoked-legal-order",
+			"description": "mandate anchor revoked with LEGAL_ORDER",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"100977553495497398333284454810051558729572311213251540121487619487618880854875": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "KYA_REGISTERED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0xfc67809fc50dae33c9dd8557400fa742cac96b8a681a3f268c8fb118943babc4",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						},
+						"42456034842925156744490960867141260358045377042921210063267135032578889446950": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "TASK_MANDATE",
+							"status": "REVOKED",
+							"reason": "LEGAL_ORDER",
+							"issuedAt": 1799997000,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x09c0e43b94b05a46075a6eea7f353f6ffe27beb1c7287dc9d38f251773a6fa84",
+							"contentHash": "0xaa8dfa968a428643178bc342d43ac826cc994ee8d7cbe1599f17a5a6ecc7ac98"
+						}
+					}
+				},
+				"mandate": {
+					"typedData": {
+						"types": {
+							"EIP712Domain": [
+								{
+									"name": "name",
+									"type": "string"
+								},
+								{
+									"name": "version",
+									"type": "string"
+								},
+								{
+									"name": "chainId",
+									"type": "uint256"
+								},
+								{
+									"name": "verifyingContract",
+									"type": "address"
+								}
+							],
+							"Mandate": [
+								{
+									"name": "schema",
+									"type": "string"
+								},
+								{
+									"name": "principal",
+									"type": "address"
+								},
+								{
+									"name": "agent",
+									"type": "address"
+								},
+								{
+									"name": "credentialId",
+									"type": "uint256"
+								},
+								{
+									"name": "taskClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "assetClasses",
+									"type": "string[]"
+								},
+								{
+									"name": "counterparties",
+									"type": "address[]"
+								},
+								{
+									"name": "spendCap",
+									"type": "uint256"
+								},
+								{
+									"name": "validAfter",
+									"type": "uint64"
+								},
+								{
+									"name": "validBefore",
+									"type": "uint64"
+								},
+								{
+									"name": "nonce",
+									"type": "bytes32"
+								}
+							]
+						},
+						"primaryType": "Mandate",
+						"domain": {
+							"name": "CAS Mandate",
+							"version": "1",
+							"chainId": 84532,
+							"verifyingContract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B"
+						},
+						"message": {
+							"schema": "cas-1.0",
+							"principal": "0x607efDA2C5085e1e7e617f06199a0efb63A97a64",
+							"agent": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"credentialId": "100977553495497398333284454810051558729572311213251540121487619487618880854875",
+							"taskClasses": [
+								"read",
+								"draft"
+							],
+							"assetClasses": [
+								"real-estate"
+							],
+							"counterparties": [
+								"0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+							],
+							"spendCap": "0",
+							"validAfter": 1799996400,
+							"validBefore": 1800003600,
+							"nonce": "0x62e6b3e27e807d3ecab912b85f8c64e8d3e250c7beb29ba4f75d3edc202e26c8"
+						}
+					},
+					"signature": "0x9cd0087ace4be4bef58bc43431cd5a3a136889624f23b0cdab1d2a546d034bbc684428b8ccde4f159183ddbf4f6998340a3796db74716e6c244fca3958bb28971c"
+				},
+				"action": {
+					"taskClass": "draft",
+					"assetClass": "real-estate",
+					"counterparty": "0xbe100bC40EF389A72e7b2DbFBe7f79861093159a"
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "MANDATE_REVOKED",
+				"step": "anchor",
+				"revokeReason": "LEGAL_ORDER"
+			}
+		}
+	]
+}
