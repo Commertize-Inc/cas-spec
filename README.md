@@ -1,8 +1,10 @@
 # CAS: Commertize Agent Standard
 
+> **DRAFT v0.** This is a working draft. Its text, data formats and verifier behaviour may change before a stable version; do not rely on it for production decisions.
+
 CAS is what a software agent shows before it acts on a real asset or on someone else's behalf: a **credential** (who stands behind this agent), a signed **mandate** (what it may do) and **receipts** (what it did). Anyone can verify a credential and a mandate, with no key and no account, from chain state.
 
-This repository holds the draft specification, a reference verifier and the conformance suite. Status: **draft**, untagged. This repository publishes no credential contract address.
+This repository holds the draft specification, a reference verifier and the conformance suite. Status: **DRAFT v0** (first draft release label: `v0.1.0-draft`). This repository publishes no credential contract address.
 
 | Path | What it is | Licence |
 |---|---|---|
