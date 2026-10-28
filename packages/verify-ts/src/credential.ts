@@ -13,12 +13,14 @@ export interface Provider {
 	request(args: { method: string; params?: unknown[] }): Promise<unknown>;
 }
 
-export const KINDS = ["KYA_REGISTERED", "TASK_MANDATE", "WORK_ACCEPTED", "ATTESTATION"] as const;
+export const KINDS = ["KYA_REGISTERED", "TASK_MANDATE", "WORK_ACCEPTED", "ATTESTATION", "STATUS_REVOKED", "STATUS_REINSTATED"] as const;
 export const STATUSES = ["NONE", "ISSUED", "REVOKED", "UNLINKED"] as const;
 export const REVOKE_REASONS = ["MANDATE_ENDED", "KYA_LAPSED", "MISUSE", "ERROR", "HOLDER_REQUEST", "LEGAL_ORDER"] as const;
 export type Kind = (typeof KINDS)[number];
 export type Status = (typeof STATUSES)[number];
 export type RevokeReason = (typeof REVOKE_REASONS)[number];
+/** Kinds 4 and 5 record a status and confer nothing (spec 3.2): isValid is false for them (spec 3.3). */
+export const isStatusKind = (k: Kind): boolean => k === "STATUS_REVOKED" || k === "STATUS_REINSTATED";
 
 /** The read-only interface fragment this verifier calls (human-readable signatures). */
 export const CREDENTIAL_INTERFACE = Object.freeze([
@@ -74,7 +76,8 @@ export type CredentialReason =
 	| "SUBJECT_MISMATCH"
 	| "WRONG_KIND"
 	| "PAUSED"
-	| "INVALID_ID";
+	| "INVALID_ID"
+	| "NOT_A_CREDENTIAL";
 
 export interface CredentialResult {
 	valid: boolean;
@@ -248,7 +251,7 @@ function readSnapshot(s: Snapshot, chainId: number, contract: string, id: bigint
 		typeof c.contentHash === "string" &&
 		HASH32.test(c.contentHash);
 	if (!ok) return { ...snap("MALFORMED", "snapshot credential record"), blockNumber };
-	return { record: c, paused: s.paused, isValid: !s.paused && c.status === "ISSUED", statusRead: c.status, blockNumber };
+	return { record: c, paused: s.paused, isValid: !s.paused && c.status === "ISSUED" && !isStatusKind(c.kind), statusRead: c.status, blockNumber };
 }
 
 /**
@@ -274,11 +277,13 @@ export async function verifyCredential(chainId: number, contract: string, id: st
 	const { record, paused, isValid, statusRead, blockNumber } = st;
 	const out = (r: CredentialReason, extra: Partial<CredentialResult> = {}) => res(source, r, { credential: record, blockNumber, ...extra });
 
-	if (statusRead !== record.status || isValid !== (!paused && record.status === "ISSUED"))
+	if (statusRead !== record.status || isValid !== (!paused && record.status === "ISSUED" && !isStatusKind(record.kind)))
 		return out("INCONSISTENT_STATE", { detail: "status/isValid/paused reads disagree" });
 	if (record.status === "NONE") return res(source, "NOT_FOUND", { blockNumber });
 	// The record must be the one its id names. A conforming contract cannot fail this; a snapshot can.
 	if (idFor(record.subject, record.kind, record.ref) !== nid) return out("INVALID_ID", { detail: "id is not idFor(subject, kind, ref) of the record" });
+	// Status kinds (4, 5) record a status and confer nothing (spec 3.2): never VALID, whatever was asked for.
+	if (isStatusKind(record.kind)) return out("NOT_A_CREDENTIAL", { detail: "a status record, not a credential" });
 	if (record.status === "REVOKED") return out("REVOKED", { revokeReason: record.reason });
 	if (record.status === "UNLINKED") return out("UNLINKED");
 	if (!trusted.some((t) => sameAddress(t, record.issuer))) return out("UNTRUSTED_ISSUER");

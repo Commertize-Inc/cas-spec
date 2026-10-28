@@ -132,7 +132,7 @@ export function fakeProvider(s: Snapshot, override: Partial<Record<"chainId" | "
 			const status = c ? STATUSES.indexOf(c.status) : 0;
 			if (sel === SELECTORS.paused) return has("paused") ? override.paused : `0x${word(s.paused ? 1n : 0n)}`;
 			if (sel === SELECTORS.status) return has("status") ? override.status : `0x${word(BigInt(status))}`;
-			if (sel === SELECTORS.isValid) return has("isValid") ? override.isValid : `0x${word(!s.paused && c?.status === "ISSUED" ? 1n : 0n)}`;
+			if (sel === SELECTORS.isValid) return has("isValid") ? override.isValid : `0x${word(!s.paused && c?.status === "ISSUED" && c?.kind !== "STATUS_REVOKED" && c?.kind !== "STATUS_REINSTATED" ? 1n : 0n)}`;
 			if (sel === SELECTORS.credential) {
 				if (has("credential")) return override.credential;
 				if (!c) return `0x${word(0n).repeat(8)}`;

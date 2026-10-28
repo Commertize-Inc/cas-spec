@@ -83,7 +83,7 @@ test("dirty words in the credential tuple are refused", async () => {
 	assert.equal((await live({ credential: base })).reason, "VALID"); // control: the untouched tuple passes
 	const word = (i: number, v: string) => `0x${base.slice(2, 2 + i * 64)}${v}${base.slice(2 + (i + 1) * 64)}`;
 	assert.equal((await live({ credential: word(0, `01${base.slice(4, 66)}`) })).reason, "INCONSISTENT_STATE"); // dirty address
-	assert.equal((await live({ credential: word(1, W(4n).slice(2)) })).reason, "INCONSISTENT_STATE"); // kind out of range
+	assert.equal((await live({ credential: word(1, W(6n).slice(2)) })).reason, "INCONSISTENT_STATE"); // kind out of range (0-5 are defined)
 	assert.equal((await live({ credential: word(2, W(4n).slice(2)) })).reason, "INCONSISTENT_STATE"); // status out of range
 	assert.equal((await live({ credential: word(3, W(6n).slice(2)) })).reason, "INCONSISTENT_STATE"); // reason out of range
 	assert.equal((await live({ credential: word(4, W(1n << 64n).slice(2)) })).reason, "INCONSISTENT_STATE"); // issuedAt > uint64
@@ -133,6 +133,21 @@ test("checksum-insensitive issuer and subject match; wrong subject and kind refu
 	assert.equal((await verifyCredential(84532, contract, id, { ...o, kind: "TASK_MANDATE" })).reason, "WRONG_KIND");
 });
 
+test("status records (kinds 4, 5) are never VALID: NOT_A_CREDENTIAL with or without a requested kind, before REVOKED and trust", async () => {
+	for (const [k, kind] of [[4, "STATUS_REVOKED"], [5, "STATUS_REINSTATED"]] as const) {
+		const sid = idForTest(subject, k, ref);
+		const rec = { ...snap().credentials[id]!, kind };
+		const s = (over: object = {}) => snap({ credentials: { [sid]: { ...rec, ...over } } });
+		const o = { trustedIssuers: [issuer], snapshot: s() };
+		assert.equal((await verifyCredential(84532, contract, sid, o)).reason, "NOT_A_CREDENTIAL", `${kind}, no kind asked`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, subject })).reason, "NOT_A_CREDENTIAL", `${kind}, subject asked`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, kind })).reason, "NOT_A_CREDENTIAL", `${kind} asked as a credential`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, kind: "KYA_REGISTERED" })).reason, "NOT_A_CREDENTIAL", `${kind}, KYA asked`);
+		assert.equal((await verifyCredential(84532, contract, sid, { trustedIssuers: [subject], snapshot: s({ status: "REVOKED" }) })).reason, "NOT_A_CREDENTIAL", `${kind}, revoked + untrusted`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, snapshot: snap({ credentials: { [sid]: { ...rec, ref: randomHash() } } }) })).reason, "INVALID_ID", "INVALID_ID still comes first");
+	}
+});
+
 test("a paused contract gives PAUSED, never REVOKED, with no revoke reason", async () => {
 	for (const opts of [{ snapshot: snap({ paused: true }) }, { provider: fakeProvider(snap({ paused: true })) }]) {
 		const r = await verifyCredential(84532, contract, id, { trustedIssuers: [issuer], ...opts });
@@ -162,7 +177,8 @@ test("idFor matches the test derivation and mandateAnchorId, and checksum case d
 	const digest = randomHash();
 	assert.equal(idFor(subject, "TASK_MANDATE", digest).toString(), mandateAnchorId(subject, digest));
 	assert.notEqual(idFor(subject, 1, ref), idFor(subject, 0, ref));
-	assert.throws(() => idFor(subject, 4, ref));
+	assert.throws(() => idFor(subject, 6, ref));
+	assert.notEqual(idFor(subject, 4, ref), idFor(subject, 5, ref), "the status kinds are distinct ids");
 	assert.throws(() => idFor("0x1", 0, ref));
 	assert.throws(() => idFor(subject, 0, "0x00"));
 });
