@@ -89,6 +89,9 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+          # The PR head, not GitHub's synthetic test-merge commit: that commit is unsigned by
+          # construction and would fail every PR. The range base..head is exactly the PR's commits.
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
