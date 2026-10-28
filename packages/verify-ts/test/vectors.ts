@@ -106,7 +106,7 @@ export function buildVectors(): Vector[] {
 		V("credential-subject-mismatch", "the record belongs to another subject", { ...base, subject: stranger.address }, { valid: false, reason: "SUBJECT_MISMATCH", step: "credential" }),
 		V("credential-wrong-kind", "credentialId names a TASK_MANDATE record", { ...base, credentialId: goodAnchorId }, { valid: false, reason: "WRONG_KIND", step: "credential" }),
 		// Status kinds (spec 3.1, 3.2): fixed refs, so no draw from the seeded stream moves later vectors.
-		...(() => {
+		...((): Vector[] => {
 			const statusRef = ("0x" + "5a".repeat(32)) as Hex;
 			const revokedId = idFor(agent.address, 4, statusRef);
 			// ref = keccak256(enc("CAS-REINSTATE", oldSubject, contentHash)) (spec 3.2, Solidity argument encoding): head (offset 0x60,
@@ -118,7 +118,7 @@ export function buildVectors(): Vector[] {
 				keccak256(concat(bigToBytes32(0x60n), new Uint8Array(12), hexToBytes(agent.address), hexToBytes(kya.contentHash), bigToBytes32(BigInt(tag.length)), tagWord))
 			) as Hex;
 			const reinstatedId = idFor(stranger.address, 5, oldWord);
-			const rec = (subject: string, kind: CredentialRecord["kind"], ref: Hex): CredentialRecord => ({ ...kya, subject, kind, ref });
+			const rec = (subject: CredentialRecord["subject"], kind: CredentialRecord["kind"], ref: Hex): CredentialRecord => ({ ...kya, subject, kind, ref });
 			return [
 				V("credential-status-revoked", "STATUS_REVOKED on the revoked agent: a status record, never VALID", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
 				V("credential-status-reinstated", "STATUS_REINSTATED on the new address, ref = keccak256(enc(\"CAS-REINSTATE\", old address, contentHash)): a status record, never VALID", { ...base, subject: stranger.address, credentialId: reinstatedId, snapshot: snap({ [reinstatedId]: rec(stranger.address, "STATUS_REINSTATED", oldWord) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
