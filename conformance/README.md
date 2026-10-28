@@ -51,6 +51,16 @@ This is the same derivation as `packages/verify-ts/test/helpers.ts` (`withSeed`,
 
 A credential contract conforms when it exposes the read interface and events of spec section 3.3, writes only as in section 3.2, and is not transferable. This directory contains no issuer suite. An issuer mark cannot be shown until one exists at a pinned suite version.
 
+Issuer cases that a future suite MUST include, and that any issuer implementation SHOULD test now:
+
+- **I-1, no re-issue to a revoked subject (spec section 3.2).**
+  1. Issue `KYA_REGISTERED` to subject `S` with ref `r1`.
+  2. Revoke it.
+  3. Call `issue(S, 0, r2, contentHash)` with a different ref `r2`. It MUST revert, and no `Issued` event is emitted.
+
+  The receipt vector `two-credentials-anchored-at-reissue` models the state this rule forbids. It exists so that verifiers agree on a result if a non-conforming issuer ever produces that state.
+- **I-2, conformance keys are never registered (spec section 5.1.1).** `issue()` to any address under "Addresses that must never be registered" MUST be refused by the issuer.
+
 ## Badge rule
 
 The marks are **"CAS-1 Conformant (verifier)"** and **"CAS-1 Conformant (issuer)"**.
