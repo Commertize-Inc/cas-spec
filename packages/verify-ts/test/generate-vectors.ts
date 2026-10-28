@@ -12,7 +12,7 @@
 //   node --experimental-strip-types packages/verify-ts/test/generate-vectors.ts          write the files
 //   node --experimental-strip-types packages/verify-ts/test/generate-vectors.ts --check  exit 1 on any byte difference
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { renderReceiptVectorFile, renderVectorFile, RECEIPT_VECTOR_FILE, VECTOR_FILE } from "./vector-file.ts";
 
 const files: [URL, string][] = [
@@ -47,6 +47,18 @@ for (const [file, want] of files) {
 	} else {
 		writeFileSync(file, want);
 		console.log(`wrote ${name}: ${JSON.parse(want).vectors.length} vectors`);
+	}
+}
+// Every file in conformance/vectors must be generator output: a hand-added file is never compared,
+// so --check refuses any file the generator does not write.
+if (process.argv.includes("--check")) {
+	const dir = new URL("./", VECTOR_FILE);
+	const known = new Set(files.map(([f]) => f.pathname.split("/").at(-1)));
+	for (const name of readdirSync(dir)) {
+		if (!known.has(name)) {
+			console.error(`vectors:check: conformance/vectors/${name} is not generator output; remove it or add it to the generator`);
+			failed = true;
+		}
 	}
 }
 if (failed) process.exit(1);
