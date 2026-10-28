@@ -64,12 +64,12 @@ A credential is not transferable. There is no transfer function, no approval and
 
 **Revoked subjects.** A subject is *revoked* when any of its `KYA_REGISTERED` credentials is `REVOKED`. Because revocation is final, this flag is monotone: once revoked, an address stays revoked.
 - A revoked subject receives no credential that confers standing, permission or reputation: no `KYA_REGISTERED`, `TASK_MANDATE`, `WORK_ACCEPTED`, or `ATTESTATION` (or any later kind that vouches for, grades or credits the subject).
-- Every issuer MUST read the subject's revoked flag before any issue.
+- Every issuer MUST read the subject's revoked flag (`kyaRevoked(subject)`, section 3.3) before any issue.
 - The credential contract MUST enforce this on chain: `issue(subject, kind, ref, contentHash)` MUST revert for a revoked subject and any of these kinds, whatever the `ref`.
 - The status kinds record the revocation and its outcome and confer nothing:
   - `STATUS_REVOKED` (kind 4) is the only kind issuable to a revoked subject, and it is issuable only to one: `issue(subject, 4, ref, contentHash)` MUST revert unless `subject` is revoked.
   - `STATUS_REINSTATED` (kind 5) is issued only by `reinstate(oldSubject, newSubject, contentHash)`, to the new address, with `ref` naming the old revoked address. `issue(subject, 5, ...)` MUST revert.
-  - Neither is a credential for section 5 or section 6: a verifier MUST NOT treat either as standing, a permission or a vouch, and `verify` never returns `VALID` for one. Read as a credential, a status record gives `NOT_A_CREDENTIAL` (section 6.2), whatever kind was asked for. Read as a status, it is reported as a status record.
+  - Neither is a credential for section 5 or section 6: a verifier MUST NOT treat either as standing, a permission or a vouch, and the result of `verify` is never `VALID` for one. Read as a credential, a status record gives `NOT_A_CREDENTIAL` (section 6.2), whatever kind was asked for. Read as a status, it is reported as a status record.
 - Reinstating an agent means `reinstate(revoked, new, contentHash)`, which records `STATUS_REINSTATED` on the new address naming the revoked one, plus a new `KYA_REGISTERED` credential for the new address (rotation). The revoked address is never registered again. This also governs renewal: renewing a revoked agent is a rotation.
 - Work already in flight settles under its escrow terms, but no `WORK_ACCEPTED` credential is issued to a revoked subject. The rule is what stops a receipt signed while a key was revoked, and anchored after a re-issue, from reading as `VALID` (section 5.1.1, "Several credentials for one address"); the verifier alone cannot tell such a receipt apart. (Verifiers still handle a subject with several credentials deterministically, section 5.1.1; laundering is possible only in the state this rule forbids.)
 
@@ -81,7 +81,8 @@ A credential contract MUST expose these view functions (Solidity signatures; sel
 
 ```
 function status(uint256 id) view returns (uint8)
-function isValid(uint256 id) view returns (bool)          // true iff not paused and status == ISSUED
+function isValid(uint256 id) view returns (bool)          // true iff not paused, status == ISSUED, and kind is not 4 or 5
+function kyaRevoked(address subject) view returns (bool)  // true iff any KYA_REGISTERED credential of subject is REVOKED (section 3.2)
 function paused() view returns (bool)
 function credential(uint256 id) view returns ((address subject, uint8 kind, uint8 status, uint8 reason,
                                                 uint64 issuedAt, address issuer, bytes32 ref, bytes32 contentHash))
@@ -96,7 +97,7 @@ event Revoked(uint256 indexed id, address indexed subject, uint8 reason, address
 event Unlinked(uint256 indexed id, address indexed subject)
 ```
 
-`isValid` is the single source of truth for validity. The other reads exist so a verifier can explain a failure and can detect a contract whose reads disagree (section 6.2, `INCONSISTENT_STATE`).
+`isValid` is the single source of truth for validity. It is false for a status record (kinds 4 and 5) even when issued, so `isValid(id) && subject == caller` never admits a revoked agent through its own `STATUS_REVOKED` record. `kyaRevoked(subject)` is the revoked flag of section 3.2, the read every issuer makes before an issue. The other reads exist so a verifier can explain a failure and can detect a contract whose reads disagree (section 6.2, `INCONSISTENT_STATE`).
 
 ### 3.4 Revocation reasons
 

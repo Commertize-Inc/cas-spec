@@ -844,6 +844,94 @@
 			}
 		},
 		{
+			"name": "credential-status-revoked-live",
+			"description": "live only: an issued STATUS_REVOKED record; the contract's isValid is false for a status kind (spec 3.3), so the reads agree and the record is not a credential",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "91958333550172468392537122455151630215688296095558351659571422349572499222752",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"91958333550172468392537122455151630215688296095558351659571422349572499222752": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "STATUS_REVOKED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				},
+				"liveReads": {
+					"isValid": false
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "NOT_A_CREDENTIAL",
+				"step": "credential"
+			},
+			"modes": [
+				"live"
+			]
+		},
+		{
+			"name": "credential-status-isvalid-true",
+			"description": "live only: a contract whose isValid answers true for an issued STATUS_REVOKED record does not conform (spec 3.3); the reads disagree",
+			"input": {
+				"chainId": 84532,
+				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+				"trustedIssuers": [
+					"0x8c946F3234C54228e48602EFa947574A974776cc"
+				],
+				"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+				"credentialId": "91958333550172468392537122455151630215688296095558351659571422349572499222752",
+				"at": 1800000000,
+				"snapshot": {
+					"spec": "cas-1.0",
+					"chainId": 84532,
+					"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
+					"blockNumber": 1234,
+					"paused": false,
+					"credentials": {
+						"91958333550172468392537122455151630215688296095558351659571422349572499222752": {
+							"subject": "0x0A29ed3e8B53b5c7646e12D5c7528a171b0e550a",
+							"kind": "STATUS_REVOKED",
+							"status": "ISSUED",
+							"reason": "MANDATE_ENDED",
+							"issuedAt": 1799913600,
+							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
+							"ref": "0x5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a",
+							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
+						}
+					}
+				},
+				"liveReads": {
+					"isValid": true
+				}
+			},
+			"expect": {
+				"valid": false,
+				"reason": "INCONSISTENT_STATE",
+				"step": "credential"
+			},
+			"modes": [
+				"live"
+			]
+		},
+		{
 			"name": "credential-wrong-chain",
 			"description": "snapshot taken on another chain",
 			"input": {

@@ -115,6 +115,14 @@ export function buildVectors(): Vector[] {
 			return [
 				V("credential-status-revoked", "STATUS_REVOKED on the revoked agent: a status record, never VALID", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
 				V("credential-status-reinstated", "STATUS_REINSTATED on the new address, ref naming the old revoked address: a status record, never VALID", { ...base, subject: stranger.address, credentialId: reinstatedId, snapshot: snap({ [reinstatedId]: rec(stranger.address, "STATUS_REINSTATED", oldWord) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
+				{
+					...V("credential-status-revoked-live", "live only: an issued STATUS_REVOKED record; the contract's isValid is false for a status kind (spec 3.3), so the reads agree and the record is not a credential", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }), liveReads: { isValid: false } }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
+					modes: ["live"],
+				},
+				{
+					...V("credential-status-isvalid-true", "live only: a contract whose isValid answers true for an issued STATUS_REVOKED record does not conform (spec 3.3); the reads disagree", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }), liveReads: { isValid: true } }, { valid: false, reason: "INCONSISTENT_STATE", step: "credential" }),
+					modes: ["live"],
+				},
 			];
 		})(),
 		V("credential-wrong-chain", "snapshot taken on another chain", { ...base, snapshot: { ...baseSnap, chainId: 1 } }, { valid: false, reason: "WRONG_CHAIN", step: "credential" }),
