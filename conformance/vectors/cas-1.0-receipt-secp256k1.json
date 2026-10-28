@@ -1,0 +1,1343 @@
+{
+	"suite": "cas-1.0-receipt-secp256k1",
+	"spec": "cas-1.0",
+	"note": "Generated from the fixed public seed \"cas-1.0-receipt-secp256k1/conformance-vectors/seed-1\" (packages/verify-ts/test/vector-file.ts). The signers are throwaway test keys derived from that public seed (keyIndex n = the n-th key, see conformance/README.md): public by construction, never funded, never to be used for anything else. The file carries no private key. Signatures use RFC 6979 deterministic nonces (HMAC-SHA256), low s and v in {27, 28}, so a conforming signer reproduces each valid vector byte for byte.",
+	"vectors": [
+		{
+			"name": "valid-1",
+			"keyIndex": 0,
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "valid-2",
+			"keyIndex": 1,
+			"hash": "sha256:3fb3f2ddda21862d5f162cd2b6b410fb24adbb84c2b54d9519e7698add8c044f",
+			"digest": "0xd5bac966e0fb17b383da4376bd353451a2cab12c5997b12fb6324d4618a3f779",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x1f86889f263a34a688c1b22c1059a76accaaff87",
+				"sig": "u9lGMh2mFQZA8NR80-YguDfLmBD0UgAzLvi4lBQLeMpdKEL5r-wZ5BsHOG6idAIHvQVWXQVioSuvluxpuziyoBw"
+			},
+			"sigHex": "0xbbd946321da6150640f0d47cd3e620b837cb9810f45200332ef8b894140b78ca5d2842f9afec19e41b07386ea2740207bd05565d0562a12baf96ec69bb38b2a01c",
+			"agentKeys": [
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x1f86889f263a34a688c1b22c1059a76accaaff87"
+			}
+		},
+		{
+			"name": "valid-3",
+			"keyIndex": 2,
+			"hash": "sha256:f59a771860e934e1c409dd55831e99c18e9873a155998f19a6f77c2b8456ee08",
+			"digest": "0x7b47c9976f192beeaa01e5c6e91b9da3d3e5f3f11e4f0ced9398d05054ac4247",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x2744a427a349ca57b44c9e721ead157758e8a27d",
+				"sig": "F3WmK0sChRqCWfz1kBJIB62hlwrbBauhW0n3ILnw6_9oJZ59TO63kXRh_kt9CpsZAGHzB7p1hOhIEnQiP81G0Bw"
+			},
+			"sigHex": "0x1775a62b4b02851a8259fcf590124807ada1970adb05aba15b49f720b9f0ebff68259e7d4ceeb7917461fe4b7d0a9b190061f307ba7584e8481274223fcd46d01c",
+			"agentKeys": [
+				{
+					"address": "0x2744a427a349ca57B44c9e721ead157758E8A27d",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x2744a427a349ca57b44c9e721ead157758e8a27d"
+			}
+		},
+		{
+			"name": "valid-4",
+			"keyIndex": 3,
+			"hash": "sha256:54ffb9168af72f6b74942a9ab7569c6904aed858bde6aa1ffeb3b705d16cdd04",
+			"digest": "0x10aef6d07a428870787d0a6003bfa86613edd80d5cabc9dea5fc9877c10f1ed8",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x020e04d4dead79ad49bb8d81b073843f63cf5377",
+				"sig": "ZM3pj6rUqBeullHur3VkO2RxnFwD_IvFP6wJYG9PFyVER5MV_7B0YuCZwnQRRrX7ZTkSo2VWxzxQTBveZsugIBs"
+			},
+			"sigHex": "0x64cde98faad4a817ae9651eeaf75643b64719c5c03fc8bc53fac09606f4f172544479315ffb07462e099c2741146b5fb653912a36556c73c504c1bde66cba0201b",
+			"agentKeys": [
+				{
+					"address": "0x020E04D4deAD79ad49bb8d81b073843F63Cf5377",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x020e04d4dead79ad49bb8d81b073843f63cf5377"
+			}
+		},
+		{
+			"name": "valid-5",
+			"keyIndex": 4,
+			"hash": "sha256:464b609d16f89dca0678e7f4a269d89e58fbda7070955ad604af1608ce5bfc54",
+			"digest": "0xe3176b0c1d235e2df2ca0af729e14840d956a0b6f0d06c83ec2ccd0a5cdbd79e",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0xa3440d6ef34d830442903311e1614fac295f3ebf",
+				"sig": "bffE_o0dwFMNreyDXcauQXDZtqmqTULLZeiQfsDHWRAhXQHeKyAtI4CI4dltqUC54Q8rJB1QKDvXrmERGgApkBs"
+			},
+			"sigHex": "0x6df7c4fe8d1dc0530dadec835dc6ae4170d9b6a9aa4d42cb65e8907ec0c75910215d01de2b202d238088e1d96da940b9e10f2b241d50283bd7ae61111a0029901b",
+			"agentKeys": [
+				{
+					"address": "0xA3440d6eF34d830442903311E1614FAC295F3EBf",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0xa3440d6ef34d830442903311e1614fac295f3ebf"
+			}
+		},
+		{
+			"name": "valid-6",
+			"keyIndex": 5,
+			"hash": "sha256:4f06e847616d9d60e1e2a9086998bfc41f3a25ee7ce031bbfce997da83c7c82e",
+			"digest": "0x4204b98f3a0fdfa9b8c254ee8229c2bc7fa08cb654f6c7e0159a777aaa90c322",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x07d8c96bc18f4d7aa5f9373e63249c34ab3220ec",
+				"sig": "FQo_77c8JJbc2r_5zsJQSXFtPI6oUp_B2mBpTgG4G6Z7wZfu-pa7IImPHCWXRVlmixEecbP4Lnd8X-6kQevq9Rw"
+			},
+			"sigHex": "0x150a3fefb73c2496dcdabff9cec25049716d3c8ea8529fc1da60694e01b81ba67bc197eefa96bb20898f1c25974559668b111e71b3f82e777c5feea441ebeaf51c",
+			"agentKeys": [
+				{
+					"address": "0x07d8C96BC18F4d7Aa5f9373E63249c34Ab3220Ec",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x07d8c96bc18f4d7aa5f9373e63249c34ab3220ec"
+			}
+		},
+		{
+			"name": "valid-zero-hash",
+			"keyIndex": 0,
+			"hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+			"digest": "0xdac51de4c47292ae05b57ce59d53941a380190c1e95376c8773e18b1a261c4b5",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "2uN7H-l-ubF-Czj0dVO0elNhx6TNWrupoLPKncZFFzc_9YlpAyLFSyiUc36F3iunb1ZfixjWqWUD3dfEg3CJNRs"
+			},
+			"sigHex": "0xdae37b1fe97eb9b17e0b38f47553b47a5361c7a4cd5abba9a0b3ca9dc64517373ff589690322c54b2894737e85de2ba76f565f8b18d6a96503ddd7c4837089351b",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "valid-same-key-second-receipt",
+			"keyIndex": 0,
+			"hash": "sha256:3fb3f2ddda21862d5f162cd2b6b410fb24adbb84c2b54d9519e7698add8c044f",
+			"digest": "0xd5bac966e0fb17b383da4376bd353451a2cab12c5997b12fb6324d4618a3f779",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "zT-gBkRJEmgAF_Uy2DwiRfXr4ntQr9FPIoxYEjzxdpdj2Maq1vPPvSUdLJPFg4KAwii3xZ0Hd2o-naq9qd0vvhs"
+			},
+			"sigHex": "0xcd3fa006444912680017f532d83c2245f5ebe27b50afd14f228c58123cf1769763d8c6aad6f3cfbd251d2c93c5838280c228b7c59d07776a3e9daabda9dd2fbe1b",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "invalid-high-s",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ_s1lvjd4lmFyJIn0VF6Os3n8ZdDyoGagnI7dCXKwkokBs"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409fecd65be37789661722489f4545e8eb379fc65d0f2a066a09c8edd0972b0928901b",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "BAD_SIGNATURE"
+			}
+		},
+		{
+			"name": "invalid-v-29",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsR0"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11d",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "BAD_SIGNATURE"
+			}
+		},
+		{
+			"name": "invalid-v-0-or-1-form",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsQE"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b101",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "BAD_SIGNATURE"
+			}
+		},
+		{
+			"name": "invalid-stale-hash",
+			"hash": "sha256:f59a771860e934e1c409dd55831e99c18e9873a155998f19a6f77c2b8456ee08",
+			"digest": "0x7b47c9976f192beeaa01e5c6e91b9da3d3e5f3f11e4f0ced9398d05054ac4247",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "BAD_SIGNATURE"
+			}
+		},
+		{
+			"name": "invalid-key-id-other-address",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x1f86889f263a34a688c1b22c1059a76accaaff87",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "BAD_SIGNATURE"
+			}
+		},
+		{
+			"name": "invalid-agent-not-the-signer",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "SUBJECT_MISMATCH",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "malformed-short-signature",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsQ"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b1",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "MALFORMED"
+			}
+		},
+		{
+			"name": "malformed-non-canonical-base64url",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRx"
+			},
+			"sigHex": null,
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "MALFORMED"
+			}
+		},
+		{
+			"name": "malformed-key-id-checksum-case",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "MALFORMED"
+			}
+		},
+		{
+			"name": "malformed-hash-uppercase",
+			"hash": "sha256:DDE1BA6592FBDC188E9CB2BDA2C003373B1DFC7E6AEFD892EF136632C90378A2",
+			"digest": null,
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "MALFORMED"
+			}
+		},
+		{
+			"name": "malformed-wrong-alg",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "ed25519",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "MALFORMED"
+			}
+		},
+		{
+			"name": "rotated-old-key-anchored-before-revocation",
+			"keyIndex": 0,
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 2000,
+						"logIndex": 1
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 1500,
+				"logIndex": 3
+			},
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "rotated-old-key-anchored-at-revocation-time",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 2000,
+						"logIndex": 1
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 2000,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "rotated-old-key-anchored-after-revocation",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 2000,
+						"logIndex": 1
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 2500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "rotated-old-key-not-anchored",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 2000,
+						"logIndex": 1
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "rotated-new-key",
+			"keyIndex": 1,
+			"hash": "sha256:3fb3f2ddda21862d5f162cd2b6b410fb24adbb84c2b54d9519e7698add8c044f",
+			"digest": "0xd5bac966e0fb17b383da4376bd353451a2cab12c5997b12fb6324d4618a3f779",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x1f86889f263a34a688c1b22c1059a76accaaff87",
+				"sig": "u9lGMh2mFQZA8NR80-YguDfLmBD0UgAzLvi4lBQLeMpdKEL5r-wZ5BsHOG6idAIHvQVWXQVioSuvluxpuziyoBw"
+			},
+			"sigHex": "0xbbd946321da6150640f0d47cd3e620b837cb9810f45200332ef8b894140b78ca5d2842f9afec19e41b07386ea2740207bd05565d0562a12baf96ec69bb38b2a01c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 2000,
+						"logIndex": 1
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 2500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x1f86889f263a34a688c1b22c1059a76accaaff87"
+			}
+		},
+		{
+			"name": "rotated-new-key-anchored-before-its-credential",
+			"hash": "sha256:3fb3f2ddda21862d5f162cd2b6b410fb24adbb84c2b54d9519e7698add8c044f",
+			"digest": "0xd5bac966e0fb17b383da4376bd353451a2cab12c5997b12fb6324d4618a3f779",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x1f86889f263a34a688c1b22c1059a76accaaff87",
+				"sig": "u9lGMh2mFQZA8NR80-YguDfLmBD0UgAzLvi4lBQLeMpdKEL5r-wZ5BsHOG6idAIHvQVWXQVioSuvluxpuziyoBw"
+			},
+			"sigHex": "0xbbd946321da6150640f0d47cd3e620b837cb9810f45200332ef8b894140b78ca5d2842f9afec19e41b07386ea2740207bd05565d0562a12baf96ec69bb38b2a01c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x1f86889f263a34A688C1B22C1059A76AccAaFf87",
+					"status": "ISSUED",
+					"issued": {
+						"block": 2000,
+						"logIndex": 1
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 1500,
+				"logIndex": 3
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "SUBJECT_MISMATCH",
+				"signer": "0x1f86889f263a34a688c1b22c1059a76accaaff87"
+			}
+		},
+		{
+			"name": "revoked-key-not-anchored",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "revoked-key-anchored-before-issue",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				}
+			],
+			"anchor": {
+				"block": 500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "SUBJECT_MISMATCH",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "unlinked-key-anchored-before-issue",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "UNLINKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				}
+			],
+			"anchor": {
+				"block": 500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "SUBJECT_MISMATCH",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "revoked-key-anchor-log-before-revoke-log-same-block",
+			"keyIndex": 0,
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 5
+					}
+				}
+			],
+			"anchor": {
+				"block": 2000,
+				"logIndex": 4
+			},
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "revoked-key-anchor-log-after-revoke-log-same-block",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 5
+					}
+				}
+			],
+			"anchor": {
+				"block": 2000,
+				"logIndex": 6
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "unlinked-then-revoked-earliest-end-counts",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 1800,
+						"logIndex": 0
+					}
+				}
+			],
+			"anchor": {
+				"block": 1900,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "two-credentials-anchor-under-first",
+			"keyIndex": 0,
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 3000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 1500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "two-credentials-anchor-in-the-gap",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 3000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 2500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "two-credentials-anchor-under-second",
+			"keyIndex": 0,
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 3000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 3500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "two-credentials-not-anchored",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 3000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "two-credentials-anchored-at-reissue",
+			"keyIndex": 0,
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				},
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 3000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": {
+				"block": 3000,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": true,
+				"reason": "VALID",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "paused-key-in-force",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "ISSUED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": null
+				}
+			],
+			"anchor": null,
+			"paused": true,
+			"expected": {
+				"valid": false,
+				"reason": "PAUSED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "paused-revoked-key-not-anchored",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "REVOKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				}
+			],
+			"anchor": null,
+			"paused": true,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		},
+		{
+			"name": "unlinked-key-anchored-after-unlink",
+			"hash": "sha256:dde1ba6592fbdc188e9cb2bda2c003373b1dfc7e6aefd892ef136632c90378a2",
+			"digest": "0x3a7a325683e7ec6947bcfa5312fb8e17a0de4ea23eb5809cf17051e4a41db3bd",
+			"signature": {
+				"alg": "secp256k1",
+				"key_id": "0x52021b20d8b401cab955fd94937dc9da0f819a5c",
+				"sig": "Y9QU3GtJyYna-1hEAwDUfSXoY5J_VrdgX12pvkreQJ8TKaQciHaZ6N23YLq6FxTHGuh_14VCNjH25I31pS0YsRw"
+			},
+			"sigHex": "0x63d414dc6b49c989dafb58440300d47d25e863927f56b7605f5da9be4ade409f1329a41c887699e8ddb760baba1714c71ae87fd785423631f6e48df5a52d18b11c",
+			"agentKeys": [
+				{
+					"address": "0x52021b20D8B401Cab955FD94937dC9dA0f819A5C",
+					"status": "UNLINKED",
+					"issued": {
+						"block": 1000,
+						"logIndex": 0
+					},
+					"ended": {
+						"block": 2000,
+						"logIndex": 0
+					}
+				}
+			],
+			"anchor": {
+				"block": 2500,
+				"logIndex": 0
+			},
+			"paused": false,
+			"expected": {
+				"valid": false,
+				"reason": "KEY_REVOKED",
+				"signer": "0x52021b20d8b401cab955fd94937dc9da0f819a5c"
+			}
+		}
+	]
+}
