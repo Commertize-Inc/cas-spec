@@ -98,4 +98,7 @@ jobs:
       - name: Signed-off-by on every commit
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: node scripts/check-dco.mjs "$BASE_SHA"
+        run: |
+          out="$(node scripts/check-dco.mjs "$BASE_SHA")"
+          echo "$out"
+          echo "$out" | grep -q "^check-dco: ok"

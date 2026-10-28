@@ -12,6 +12,8 @@
 // commit's author email equals that email, and the named commit is in the checked range. Every
 // unsigned commit must be covered, or the check fails.
 import { execFileSync } from "node:child_process";
+import { realpathSync } from "node:fs";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 export function checkDco(repoDir, base) {
 	const range = base ? [`${base}..HEAD`] : ["HEAD"];
@@ -49,7 +51,15 @@ export function checkDco(repoDir, base) {
 	return { ok: errors.length === 0, errors, count: commits.length };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Resolve symlinks and percent-encode (spaces) before comparing, so the guard never silently skips.
+const isMain = (() => {
+	try {
+		return !!process.argv[1] && pathToFileURL(realpathSync(process.argv[1])).href === pathToFileURL(realpathSync(fileURLToPath(import.meta.url))).href;
+	} catch {
+		return false;
+	}
+})();
+if (isMain) {
 	const r = checkDco(process.cwd(), process.argv[2]);
 	if (!r.ok) {
 		console.error(r.errors.join("\n"));

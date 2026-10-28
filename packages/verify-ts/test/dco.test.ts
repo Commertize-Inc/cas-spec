@@ -86,3 +86,23 @@ test("a remediation that is not itself signed off fails; a short sha does not co
 	commitMsg(r2, ALICE, `DCO Remediation Commit\n\n${grant(ALICE, u2.slice(0, 12))}\n\n${sob(ALICE)}\n`);
 	assert.equal(checkDco(r2.dir, r2.base).ok, false, "short sha");
 });
+
+test("the CLI runs (prints check-dco: ok, or fails) when invoked through a symlinked dir or a path with a space", async () => {
+	const { cpSync, symlinkSync, mkdirSync } = await import("node:fs");
+	const { fileURLToPath } = await import("node:url");
+	const src = fileURLToPath(scriptUrl);
+	const root = mkdtempSync(join(tmpdir(), "cas-dco-cli-"));
+	const spaced = join(root, "has space");
+	mkdirSync(spaced);
+	cpSync(src, join(spaced, "check-dco.mjs"));
+	symlinkSync(spaced, join(root, "link"));
+	const good = repo();
+	commitMsg(good, ALICE, `one\n\n${sob(ALICE)}\n`);
+	const bad = repo();
+	commitMsg(bad, ALICE, "unsigned\n");
+	for (const script of [join(spaced, "check-dco.mjs"), join(root, "link", "check-dco.mjs")]) {
+		const out = execFileSync("node", [script, good.base], { cwd: good.dir, encoding: "utf8" });
+		assert.match(out, /^check-dco: ok \(1 commits\)/m, script);
+		assert.throws(() => execFileSync("node", [script, bad.base], { cwd: bad.dir, stdio: "pipe" }), script);
+	}
+});
