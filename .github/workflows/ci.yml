@@ -76,6 +76,9 @@ jobs:
       - name: No byte difference in the tree
         run: git diff --exit-code -- conformance/vectors
 
+      - name: No untracked or extra file under conformance/vectors
+        run: test -z "$(git status --porcelain --untracked-files=all -- conformance/vectors)"
+
   # Developer Certificate of Origin: every commit in a pull request carries a
   # Signed-off-by line naming its author (CONTRIBUTING.md). No CLA.
   dco:
