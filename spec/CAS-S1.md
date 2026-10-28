@@ -61,6 +61,8 @@ A credential is not transferable. There is no transfer function, no approval and
 | `unlink(id)` | the subject only, also while paused | `ISSUED` to `UNLINKED`; emits `Unlinked`. The holder can always walk away. |
 | `pause()` / `unpause()` | admin role | While paused no credential verifies as VALID and nothing can be issued. Revocation and unlinking still work and still read. |
 
+An issuer MUST NOT issue a `KYA_REGISTERED` credential to a subject that already has a `REVOKED` `KYA_REGISTERED` credential. Renewing a revoked agent means rotating it to a new address with a new credential; a revoked address is never registered again. (Verifiers still handle a subject with several credentials, section 5.1.1, but such a receipt is never laundered by the later credential.)
+
 CAS-1.0 credentials carry no expiry field. A credential whose underlying checks lapse is revoked with `KYA_LAPSED`. Time limits on what an agent may do live in the mandate window (section 4).
 
 ### 3.3 Read interface
@@ -173,6 +175,44 @@ A receipt is a signed, hash-linked record of one action under a mandate. CAS-1.0
 
 A receipt is evidence of what the agent recorded. It is not a statement by the issuer.
 
+#### 5.1.1 Receipt signatures with secp256k1
+
+This section fixes the `secp256k1` suite of the receipt format (CAS v0.1, C-2) for CAS-1. It keeps the C-2 signed message unchanged and adds the byte encoding, the verification rules and the binding to the agent.
+
+**Message.** `m` is the UTF-8 encoding of the string `"CAS-v0.1\n"` followed by the receipt's `hash` (`"sha256:"` and 64 lowercase hex digits). `m` is exactly 80 bytes. A `hash` in any other form is malformed.
+
+**Digest.** `d = keccak256(0x19 || "Ethereum Signed Message:\n80" || m)`: the EIP-191 personal message digest (version `0x45`) of `m`. This is the digest an EVM wallet produces when asked to sign `m` as a personal message, so an agent can sign a receipt with the same key and the same tools it already uses for its address, including hardware and remote signers that refuse to sign a raw digest. The `CAS-v0.1\n` prefix inside `m` keeps CAS signatures apart from any other message the same key signs.
+
+**Signature bytes.** A 65-byte `r || s || v`: `r` and `s` are 32-byte big-endian integers and `v` is one byte, `27` or `28`. A signer MUST produce the low-`s` form (`s <= n/2`). The `sig` field is the base64url encoding of these 65 bytes, unpadded and canonical as C-2 requires (87 characters).
+
+**key_id.** For this suite `key_id` MUST be the signer's address: `"0x"` and 40 lowercase hex digits. A mixed-case (checksummed) or uppercase `key_id` is malformed, so that one key has exactly one `key_id` string.
+
+**Verification.** A verifier MUST, in order:
+
+1. Recompute the receipt `hash` (C-1). It uses only a hash it computed itself.
+2. Check the entry: `alg` is `"secp256k1"`, `key_id` has the form above, `sig` is canonical base64url of exactly 65 bytes. Otherwise the result is `MALFORMED`.
+3. Refuse `v` other than `27` or `28`, `r` or `s` outside `[1, n-1]`, a high `s` (`s > n/2`), and an `r` that is not the x-coordinate of a curve point: `BAD_SIGNATURE`. Unlike a mandate signature (section 4.3), a receipt signature does not accept `v` as `0` or `1`: the `sig` string of a receipt is canonical, so one signature has one encoding.
+4. Recover the signer address from `d` and the signature. If it is not `key_id`, the result is `BAD_SIGNATURE`.
+5. Judge the signing key by the credential that registered it, at a position on chain the agent cannot choose:
+   - **Which credentials.** The applicable credentials are the agent's `KYA_REGISTERED` credentials whose `subject` is the recovered address, read from the credential contract or an offline snapshot of it (section 6.4). An agent that rotates its key gets a new address and a new credential; the verifier attributes each credential to the agent from its own trusted source, never from an address carried in the receipt (`key_id` included). If there is none, the result is `SUBJECT_MISMATCH`.
+   - **Positions, not timestamps.** Every comparison in this step is between positions on the credential contract's own chain: block number first, then log index within the block. `I` is the position of a credential's `Issued` event. `E` is the position of its earliest end event: `Unlinked` or `Revoked`, whichever came first (a credential can be unlinked and later revoked).
+   - **Which anchor.** `A` is the position of the receipt's anchor log. That log is a `CasAnchor(bytes32 indexed headHash)` event (topic 0 = `keccak256("CasAnchor(bytes32)")`) in the receipt's `anchor.tx` (CAS v0.1 R-3), emitted by an anchoring contract whose address the verifier names as trusted, with `headHash` equal to the 32 bytes of `anchor.head_hash`. `head_hash` is this receipt's `hash` or the `hash` of a later receipt in the same `prev_hash` chain. Any other log, or a log from an emitter the verifier has not named, does not count. `A` exists only if that transaction is confirmed on the credential contract's own chain. The receipt names `anchor.chain_id` itself, so an anchor on any other chain gives no `A`: the receipt is treated as unanchored. The receipt's own `occurred_at` is chosen by the agent and is never used.
+   - **No anchor.** If there is no `A`, nothing places the signature in time. The result is `KEY_REVOKED` if any applicable credential is `REVOKED` or `UNLINKED`, and `VALID` only if every applicable credential is `ISSUED`. A credential issued later never makes such a receipt `VALID`: a key's revocation invalidates every receipt it signed that was not anchored on chain before it.
+   - **Anchored: each credential, in this order.**
+     1. If `A` is before `I`, the key was not yet the agent's under this credential: `SUBJECT_MISMATCH`, whatever the credential's status.
+     2. `ISSUED`: the key is in force at `A`: `VALID`.
+     3. `REVOKED` or `UNLINKED`: `VALID` only if `A` is before `E`, otherwise `KEY_REVOKED`.
+   - **Several credentials for one address.** Section 3.2 forbids issuing again to a revoked subject, but a verifier still decides deterministically: an anchored receipt is `VALID` if any applicable credential gives `VALID` (so it is `VALID` under a later credential only if `A` is at or after that credential's `I`), otherwise `KEY_REVOKED` if any gives `KEY_REVOKED`, otherwise `SUBJECT_MISMATCH`. Every verifier reading the same state reaches the same result.
+   - **Paused contract.** If the result would be `VALID` and the verifier reads the contract as paused, the result is `PAUSED` instead (section 3.2). `KEY_REVOKED` and `SUBJECT_MISMATCH` are reported while paused, as revocation is in section 6.
+
+Only when all five steps pass is the signature `VALID`. The result codes of this section, in precedence order, are `MALFORMED` (step 2), `BAD_SIGNATURE` (steps 3 and 4), then `SUBJECT_MISMATCH`, `KEY_REVOKED`, `PAUSED` and `VALID` (step 5). Each also appears in the list of section 6.5. A receipt signed under several suites follows the C-2 policy rule: a verifier MAY require each suite it names.
+
+**Binding.** The `secp256k1` suite proves that the holder of the agent's own key signed the receipt. The key is the one whose address is the subject of the agent's `KYA_REGISTERED` credential. A receipt signed by any other key, including a key of the principal or of the issuer, is not a `VALID` agent signature under this section.
+
+**Conformance keys are never agents.** The keys behind every published conformance vector are derived from public seeds, so anyone holds them. An issuer MUST refuse to issue a credential whose `subject` is one of the addresses listed under "Addresses that must never be registered" in `conformance/README.md`, and a verifier SHOULD treat a signature by one of them as test data only.
+
+**Vectors.** `conformance/vectors/cas-1.0-receipt-secp256k1.json` holds valid and invalid cases with their expected results, including a rotated key, a revoked key and an unlinked key. The signatures in it use RFC 6979 deterministic nonces, so a conforming signer reproduces each valid case byte for byte. Its keys are throwaway test keys derived from a public seed: never funded, and never to be used for anything else.
+
 ### 5.2 Attestation
 
 An attestation is a credential of kind `ATTESTATION` whose `subject` is the issuer and whose `ref` is the keccak-256 of a public policy document. The document states, for one credential class, which checks are run, by whom, and under which policy version. Changing the policy means a new document and a new attestation. The reference verifier does not evaluate attestations in this version.
@@ -206,7 +246,7 @@ A snapshot is `{ spec, chainId, contract, blockNumber, paused, credentials }`, w
 
 ### 6.5 Reason codes
 
-`VALID`, `MALFORMED`, `NO_TRUSTED_ISSUER`, `PROVIDER_ERROR`, `WRONG_CHAIN`, `NO_CONTRACT`, `INCONSISTENT_STATE`, `NOT_FOUND`, `REVOKED`, `UNLINKED`, `UNTRUSTED_ISSUER`, `SUBJECT_MISMATCH`, `WRONG_KIND`, `PAUSED`, `INVALID_ID`, `UNSUPPORTED_VERSION`, `WRONG_DOMAIN`, `BAD_SIGNATURE`, `PRINCIPAL_MISMATCH`, `UNSUPPORTED_SPEND_CAP`, `NOT_YET_VALID`, `EXPIRED`, `SCOPE_DENIED`, `CREDENTIAL_MISMATCH`, `MANDATE_NOT_ANCHORED`, `MANDATE_REVOKED`.
+`VALID`, `MALFORMED`, `NO_TRUSTED_ISSUER`, `PROVIDER_ERROR`, `WRONG_CHAIN`, `NO_CONTRACT`, `INCONSISTENT_STATE`, `NOT_FOUND`, `REVOKED`, `UNLINKED`, `UNTRUSTED_ISSUER`, `SUBJECT_MISMATCH`, `WRONG_KIND`, `PAUSED`, `INVALID_ID`, `UNSUPPORTED_VERSION`, `WRONG_DOMAIN`, `BAD_SIGNATURE`, `PRINCIPAL_MISMATCH`, `UNSUPPORTED_SPEND_CAP`, `NOT_YET_VALID`, `EXPIRED`, `SCOPE_DENIED`, `CREDENTIAL_MISMATCH`, `MANDATE_NOT_ANCHORED`, `MANDATE_REVOKED`, `KEY_REVOKED` (receipt signatures, section 5.1.1).
 
 ## 7. Compatibility with agent registries and agent cards (informative)
 
