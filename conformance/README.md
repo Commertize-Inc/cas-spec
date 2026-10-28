@@ -63,7 +63,11 @@ Issuer cases that a future suite MUST include, and that any issuer implementatio
 - **I-3, no privileged credential to a revoked subject (spec section 3.2).**
   1. Revoke a `KYA_REGISTERED` credential of subject `S`.
   2. For each of `KYA_REGISTERED`, `TASK_MANDATE`, `WORK_ACCEPTED` and `ATTESTATION`, `issue(S, kind, ref, contentHash)` with a fresh `ref` MUST revert, and no `Issued` event is emitted.
-- **I-4, status kinds are allowed (spec section 3.2).** For the same revoked `S`, `issue(S, STATUS_REVOKED, ref, contentHash)` and `issue(S, STATUS_REINSTATED, ref, contentHash)` succeed. A `verify` of `S` for `KYA_REGISTERED` is still not `VALID`, so the status records confer nothing.
+  3. `STATUS_REINSTATED` is refused through `issue` for any subject: `issue(S, STATUS_REINSTATED, ref, contentHash)` MUST revert.
+- **I-4, status kinds are allowed only where the spec places them (spec section 3.2).**
+  1. For the same revoked `S`, `issue(S, STATUS_REVOKED, ref, contentHash)` succeeds; for a subject `T` that is not revoked it MUST revert.
+  2. `reinstate(S, N, contentHash)` for a fresh address `N` succeeds and issues `STATUS_REINSTATED` to `N` with `ref = word(S)`; `reinstate(S, S, ...)`, `reinstate(T, N, ...)` with `T` not revoked, and `reinstate(S, R, ...)` with `R` revoked MUST revert.
+  3. Verifying either status record as a credential gives `NOT_A_CREDENTIAL`, never `VALID` (vectors `credential-status-revoked`, `credential-status-reinstated`), and a `verify` of `S` for `KYA_REGISTERED` is still not `VALID`.
 
 ## Badge rule
 

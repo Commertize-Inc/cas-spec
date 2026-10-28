@@ -105,6 +105,18 @@ export function buildVectors(): Vector[] {
 		V("credential-no-trusted-issuers", "an empty trusted-issuer list fails closed", { ...base, trustedIssuers: [] }, { valid: false, reason: "NO_TRUSTED_ISSUER", step: "credential" }),
 		V("credential-subject-mismatch", "the record belongs to another subject", { ...base, subject: stranger.address }, { valid: false, reason: "SUBJECT_MISMATCH", step: "credential" }),
 		V("credential-wrong-kind", "credentialId names a TASK_MANDATE record", { ...base, credentialId: goodAnchorId }, { valid: false, reason: "WRONG_KIND", step: "credential" }),
+		// Status kinds (spec 3.1, 3.2): fixed refs, so no draw from the seeded stream moves later vectors.
+		...(() => {
+			const statusRef = ("0x" + "5a".repeat(32)) as Hex;
+			const revokedId = idFor(agent.address, 4, statusRef);
+			const oldWord = ("0x" + agent.address.slice(2).toLowerCase().padStart(64, "0")) as Hex;
+			const reinstatedId = idFor(stranger.address, 5, oldWord);
+			const rec = (subject: string, kind: CredentialRecord["kind"], ref: Hex): CredentialRecord => ({ ...kya, subject, kind, ref });
+			return [
+				V("credential-status-revoked", "STATUS_REVOKED on the revoked agent: a status record, never VALID", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
+				V("credential-status-reinstated", "STATUS_REINSTATED on the new address, ref naming the old revoked address: a status record, never VALID", { ...base, subject: stranger.address, credentialId: reinstatedId, snapshot: snap({ [reinstatedId]: rec(stranger.address, "STATUS_REINSTATED", oldWord) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
+			];
+		})(),
 		V("credential-wrong-chain", "snapshot taken on another chain", { ...base, snapshot: { ...baseSnap, chainId: 1 } }, { valid: false, reason: "WRONG_CHAIN", step: "credential" }),
 		V("mandate-wrong-signer", "signed by a key that is not the principal", withMandate(signed(mandate, stranger)), { valid: false, reason: "PRINCIPAL_MISMATCH", step: "mandate" }),
 		V("mandate-high-s", "the malleable high-s form of a valid signature is refused", { ...withMandate(), mandate: { typedData: good.td, signature: highS(good.sig) } }, { valid: false, reason: "BAD_SIGNATURE", step: "mandate" }),

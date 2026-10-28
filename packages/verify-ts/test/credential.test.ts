@@ -133,6 +133,21 @@ test("checksum-insensitive issuer and subject match; wrong subject and kind refu
 	assert.equal((await verifyCredential(84532, contract, id, { ...o, kind: "TASK_MANDATE" })).reason, "WRONG_KIND");
 });
 
+test("status records (kinds 4, 5) are never VALID: NOT_A_CREDENTIAL with or without a requested kind, before REVOKED and trust", async () => {
+	for (const [k, kind] of [[4, "STATUS_REVOKED"], [5, "STATUS_REINSTATED"]] as const) {
+		const sid = idForTest(subject, k, ref);
+		const rec = { ...snap().credentials[id]!, kind };
+		const s = (over: object = {}) => snap({ credentials: { [sid]: { ...rec, ...over } } });
+		const o = { trustedIssuers: [issuer], snapshot: s() };
+		assert.equal((await verifyCredential(84532, contract, sid, o)).reason, "NOT_A_CREDENTIAL", `${kind}, no kind asked`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, subject })).reason, "NOT_A_CREDENTIAL", `${kind}, subject asked`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, kind })).reason, "NOT_A_CREDENTIAL", `${kind} asked as a credential`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, kind: "KYA_REGISTERED" })).reason, "NOT_A_CREDENTIAL", `${kind}, KYA asked`);
+		assert.equal((await verifyCredential(84532, contract, sid, { trustedIssuers: [subject], snapshot: s({ status: "REVOKED" }) })).reason, "NOT_A_CREDENTIAL", `${kind}, revoked + untrusted`);
+		assert.equal((await verifyCredential(84532, contract, sid, { ...o, snapshot: snap({ credentials: { [sid]: { ...rec, ref: randomHash() } } }) })).reason, "INVALID_ID", "INVALID_ID still comes first");
+	}
+});
+
 test("a paused contract gives PAUSED, never REVOKED, with no revoke reason", async () => {
 	for (const opts of [{ snapshot: snap({ paused: true }) }, { provider: fakeProvider(snap({ paused: true })) }]) {
 		const r = await verifyCredential(84532, contract, id, { trustedIssuers: [issuer], ...opts });

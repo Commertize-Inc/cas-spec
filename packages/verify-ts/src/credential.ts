@@ -74,7 +74,8 @@ export type CredentialReason =
 	| "SUBJECT_MISMATCH"
 	| "WRONG_KIND"
 	| "PAUSED"
-	| "INVALID_ID";
+	| "INVALID_ID"
+	| "NOT_A_CREDENTIAL";
 
 export interface CredentialResult {
 	valid: boolean;
@@ -279,6 +280,8 @@ export async function verifyCredential(chainId: number, contract: string, id: st
 	if (record.status === "NONE") return res(source, "NOT_FOUND", { blockNumber });
 	// The record must be the one its id names. A conforming contract cannot fail this; a snapshot can.
 	if (idFor(record.subject, record.kind, record.ref) !== nid) return out("INVALID_ID", { detail: "id is not idFor(subject, kind, ref) of the record" });
+	// Status kinds (4, 5) record a status and confer nothing (spec 3.2): never VALID, whatever was asked for.
+	if (record.kind === "STATUS_REVOKED" || record.kind === "STATUS_REINSTATED") return out("NOT_A_CREDENTIAL", { detail: "a status record, not a credential" });
 	if (record.status === "REVOKED") return out("REVOKED", { revokeReason: record.reason });
 	if (record.status === "UNLINKED") return out("UNLINKED");
 	if (!trusted.some((t) => sameAddress(t, record.issuer))) return out("UNTRUSTED_ISSUER");
