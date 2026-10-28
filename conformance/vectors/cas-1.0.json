@@ -807,7 +807,7 @@
 		},
 		{
 			"name": "credential-status-reinstated",
-			"description": "STATUS_REINSTATED on the new address, ref naming the old revoked address: a status record, never VALID",
+			"description": "STATUS_REINSTATED on the new address, ref = keccak256(enc(\"CAS-REINSTATE\", old address, contentHash)): a status record, never VALID",
 			"input": {
 				"chainId": 84532,
 				"contract": "0xeDAC42fC100eb32c77f095c6c860258d15879e6B",
@@ -815,7 +815,7 @@
 					"0x8c946F3234C54228e48602EFa947574A974776cc"
 				],
 				"subject": "0xF29ffB1a6DeFEB5817cfE11A8Bd0a79Df4Bc6Daa",
-				"credentialId": "112894139866382499035898667876485178853121629070176110148400965231823208607020",
+				"credentialId": "83626862706433813420927945745619325863802288271064223564340544158530992127143",
 				"at": 1800000000,
 				"snapshot": {
 					"spec": "cas-1.0",
@@ -824,14 +824,14 @@
 					"blockNumber": 1234,
 					"paused": false,
 					"credentials": {
-						"112894139866382499035898667876485178853121629070176110148400965231823208607020": {
+						"83626862706433813420927945745619325863802288271064223564340544158530992127143": {
 							"subject": "0xF29ffB1a6DeFEB5817cfE11A8Bd0a79Df4Bc6Daa",
 							"kind": "STATUS_REINSTATED",
 							"status": "ISSUED",
 							"reason": "MANDATE_ENDED",
 							"issuedAt": 1799913600,
 							"issuer": "0x8c946F3234C54228e48602EFa947574A974776cc",
-							"ref": "0x0000000000000000000000000a29ed3e8b53b5c7646e12d5c7528a171b0e550a",
+							"ref": "0x88ed9b7610a15937dfe1dfa1ef6420d1a7d8a0df06f14b5050678e6bdf15c912",
 							"contentHash": "0xa92e242bbb8c72910429f8e47746484242e97e09797e42269cdcf7b4c34c00dd"
 						}
 					}

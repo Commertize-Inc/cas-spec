@@ -109,12 +109,19 @@ export function buildVectors(): Vector[] {
 		...(() => {
 			const statusRef = ("0x" + "5a".repeat(32)) as Hex;
 			const revokedId = idFor(agent.address, 4, statusRef);
-			const oldWord = ("0x" + agent.address.slice(2).toLowerCase().padStart(64, "0")) as Hex;
+			// ref = keccak256(enc("CAS-REINSTATE", oldSubject, contentHash)) (spec 3.2, Solidity argument encoding): head (offset 0x60,
+			// address, bytes32), then the string's length word and its bytes right-padded to 32.
+			const tag = Buffer.from("CAS-REINSTATE", "utf8");
+			const tagWord = new Uint8Array(32);
+			tagWord.set(tag);
+			const oldWord = bytesToHex(
+				keccak256(concat(bigToBytes32(0x60n), new Uint8Array(12), hexToBytes(agent.address), hexToBytes(kya.contentHash), bigToBytes32(BigInt(tag.length)), tagWord))
+			) as Hex;
 			const reinstatedId = idFor(stranger.address, 5, oldWord);
 			const rec = (subject: string, kind: CredentialRecord["kind"], ref: Hex): CredentialRecord => ({ ...kya, subject, kind, ref });
 			return [
 				V("credential-status-revoked", "STATUS_REVOKED on the revoked agent: a status record, never VALID", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
-				V("credential-status-reinstated", "STATUS_REINSTATED on the new address, ref naming the old revoked address: a status record, never VALID", { ...base, subject: stranger.address, credentialId: reinstatedId, snapshot: snap({ [reinstatedId]: rec(stranger.address, "STATUS_REINSTATED", oldWord) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
+				V("credential-status-reinstated", "STATUS_REINSTATED on the new address, ref = keccak256(enc(\"CAS-REINSTATE\", old address, contentHash)): a status record, never VALID", { ...base, subject: stranger.address, credentialId: reinstatedId, snapshot: snap({ [reinstatedId]: rec(stranger.address, "STATUS_REINSTATED", oldWord) }) }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
 				{
 					...V("credential-status-revoked-live", "live only: an issued STATUS_REVOKED record; the contract's isValid is false for a status kind (spec 3.3), so the reads agree and the record is not a credential", { ...base, credentialId: revokedId, snapshot: snap({ [revokedId]: rec(agent.address, "STATUS_REVOKED", statusRef) }), liveReads: { isValid: false } }, { valid: false, reason: "NOT_A_CREDENTIAL", step: "credential" }),
 					modes: ["live"],
