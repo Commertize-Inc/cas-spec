@@ -83,7 +83,7 @@ test("dirty words in the credential tuple are refused", async () => {
 	assert.equal((await live({ credential: base })).reason, "VALID"); // control: the untouched tuple passes
 	const word = (i: number, v: string) => `0x${base.slice(2, 2 + i * 64)}${v}${base.slice(2 + (i + 1) * 64)}`;
 	assert.equal((await live({ credential: word(0, `01${base.slice(4, 66)}`) })).reason, "INCONSISTENT_STATE"); // dirty address
-	assert.equal((await live({ credential: word(1, W(4n).slice(2)) })).reason, "INCONSISTENT_STATE"); // kind out of range
+	assert.equal((await live({ credential: word(1, W(6n).slice(2)) })).reason, "INCONSISTENT_STATE"); // kind out of range (0-5 are defined)
 	assert.equal((await live({ credential: word(2, W(4n).slice(2)) })).reason, "INCONSISTENT_STATE"); // status out of range
 	assert.equal((await live({ credential: word(3, W(6n).slice(2)) })).reason, "INCONSISTENT_STATE"); // reason out of range
 	assert.equal((await live({ credential: word(4, W(1n << 64n).slice(2)) })).reason, "INCONSISTENT_STATE"); // issuedAt > uint64
@@ -162,7 +162,8 @@ test("idFor matches the test derivation and mandateAnchorId, and checksum case d
 	const digest = randomHash();
 	assert.equal(idFor(subject, "TASK_MANDATE", digest).toString(), mandateAnchorId(subject, digest));
 	assert.notEqual(idFor(subject, 1, ref), idFor(subject, 0, ref));
-	assert.throws(() => idFor(subject, 4, ref));
+	assert.throws(() => idFor(subject, 6, ref));
+	assert.notEqual(idFor(subject, 4, ref), idFor(subject, 5, ref), "the status kinds are distinct ids");
 	assert.throws(() => idFor("0x1", 0, ref));
 	assert.throws(() => idFor(subject, 0, "0x00"));
 });

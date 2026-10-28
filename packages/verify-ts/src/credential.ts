@@ -13,7 +13,7 @@ export interface Provider {
 	request(args: { method: string; params?: unknown[] }): Promise<unknown>;
 }
 
-export const KINDS = ["KYA_REGISTERED", "TASK_MANDATE", "WORK_ACCEPTED", "ATTESTATION"] as const;
+export const KINDS = ["KYA_REGISTERED", "TASK_MANDATE", "WORK_ACCEPTED", "ATTESTATION", "STATUS_REVOKED", "STATUS_REINSTATED"] as const;
 export const STATUSES = ["NONE", "ISSUED", "REVOKED", "UNLINKED"] as const;
 export const REVOKE_REASONS = ["MANDATE_ENDED", "KYA_LAPSED", "MISUSE", "ERROR", "HOLDER_REQUEST", "LEGAL_ORDER"] as const;
 export type Kind = (typeof KINDS)[number];

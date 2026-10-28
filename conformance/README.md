@@ -60,6 +60,10 @@ Issuer cases that a future suite MUST include, and that any issuer implementatio
 
   The receipt vector `two-credentials-anchored-at-reissue` models the state this rule forbids. It exists so that verifiers agree on a result if a non-conforming issuer ever produces that state.
 - **I-2, conformance keys are never registered (spec section 5.1.1).** `issue()` to any address under "Addresses that must never be registered" MUST be refused by the issuer.
+- **I-3, no privileged credential to a revoked subject (spec section 3.2).**
+  1. Revoke a `KYA_REGISTERED` credential of subject `S`.
+  2. For each of `KYA_REGISTERED`, `TASK_MANDATE`, `WORK_ACCEPTED` and `ATTESTATION`, `issue(S, kind, ref, contentHash)` with a fresh `ref` MUST revert, and no `Issued` event is emitted.
+- **I-4, status kinds are allowed (spec section 3.2).** For the same revoked `S`, `issue(S, STATUS_REVOKED, ref, contentHash)` and `issue(S, STATUS_REINSTATED, ref, contentHash)` succeed. A `verify` of `S` for `KYA_REGISTERED` is still not `VALID`, so the status records confer nothing.
 
 ## Badge rule
 

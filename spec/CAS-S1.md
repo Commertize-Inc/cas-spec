@@ -40,7 +40,7 @@ A credential is a record in a credential contract, addressed by a 256-bit id:
 | Field | Type | Meaning |
 |---|---|---|
 | `subject` | address | The agent wallet. Never zero. |
-| `kind` | uint8 enum | `0 KYA_REGISTERED`, `1 TASK_MANDATE`, `2 WORK_ACCEPTED`, `3 ATTESTATION`. |
+| `kind` | uint8 enum | `0 KYA_REGISTERED`, `1 TASK_MANDATE`, `2 WORK_ACCEPTED`, `3 ATTESTATION`, `4 STATUS_REVOKED`, `5 STATUS_REINSTATED`. Kinds 4 and 5 record a status and confer nothing (section 3.2). |
 | `status` | uint8 enum | `0 NONE`, `1 ISSUED`, `2 REVOKED`, `3 UNLINKED`. |
 | `reason` | uint8 enum | Revocation reason (section 3.4). Meaningful only when `status` is `REVOKED`. |
 | `issuedAt` | uint64 | Block timestamp at issue. |
@@ -61,7 +61,13 @@ A credential is not transferable. There is no transfer function, no approval and
 | `unlink(id)` | the subject only, also while paused | `ISSUED` to `UNLINKED`; emits `Unlinked`. The holder can always walk away. |
 | `pause()` / `unpause()` | admin role | While paused no credential verifies as VALID and nothing can be issued. Revocation and unlinking still work and still read. |
 
-An issuer MUST NOT issue a `KYA_REGISTERED` credential to a subject that already has a `REVOKED` `KYA_REGISTERED` credential. Renewing a revoked agent means rotating it to a new address with a new credential; a revoked address is never registered again. The credential contract MUST enforce this on chain: `issue(subject, 0, ref, contentHash)` MUST revert when any `KYA_REGISTERED` credential with that `subject` is `REVOKED`, whatever its `ref`. The rule is what stops a receipt signed while a key was revoked, and anchored after a re-issue, from reading as `VALID` (section 5.1.1, "Several credentials for one address"); the verifier alone cannot tell such a receipt apart. (Verifiers still handle a subject with several credentials deterministically, section 5.1.1; laundering is possible only in the state this rule forbids.)
+**Revoked subjects.** A subject is *revoked* when any of its `KYA_REGISTERED` credentials is `REVOKED`. Because revocation is final, this flag is monotone: once revoked, an address stays revoked.
+- A revoked subject receives no credential that confers standing, permission or reputation: no `KYA_REGISTERED`, `TASK_MANDATE`, `WORK_ACCEPTED`, or `ATTESTATION` (or any later kind that vouches for, grades or credits the subject).
+- Every issuer MUST read the subject's revoked flag before any issue.
+- The credential contract MUST enforce this on chain: `issue(subject, kind, ref, contentHash)` MUST revert for a revoked subject and any of these kinds, whatever the `ref`.
+- The only kinds issuable to a revoked subject are `STATUS_REVOKED` and `STATUS_REINSTATED`. They record the revocation and its outcome and confer nothing. A verifier MUST NOT treat either as standing, a permission or a vouch; for any other purpose `verify` reports `WRONG_KIND`, as for any kind it did not ask for.
+- Reinstating an agent means a `STATUS_REINSTATED` record on the revoked address, plus rotation to a new address with a new `KYA_REGISTERED` credential. The revoked address is never registered again. This also governs renewal: renewing a revoked agent is a rotation.
+- Work already in flight settles under its escrow terms, but no `WORK_ACCEPTED` credential is issued to a revoked subject. The rule is what stops a receipt signed while a key was revoked, and anchored after a re-issue, from reading as `VALID` (section 5.1.1, "Several credentials for one address"); the verifier alone cannot tell such a receipt apart. (Verifiers still handle a subject with several credentials deterministically, section 5.1.1; laundering is possible only in the state this rule forbids.)
 
 CAS-1.0 credentials carry no expiry field. A credential whose underlying checks lapse is revoked with `KYA_LAPSED`. Time limits on what an agent may do live in the mandate window (section 4).
 
