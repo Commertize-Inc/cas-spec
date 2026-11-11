@@ -31,7 +31,7 @@ test("committed vector file: header and coverage", () => {
 	const names = committed.vectors.map((v) => v.name);
 	assert.equal(new Set(names).size, names.length, "vector names are unique");
 	const reasons = new Set(committed.vectors.map((v) => v.expect.reason));
-	for (const r of ["VALID", "NOT_FOUND", "REVOKED", "UNLINKED", "PAUSED", "INVALID_ID", "UNTRUSTED_ISSUER", "NO_TRUSTED_ISSUER", "SUBJECT_MISMATCH", "WRONG_KIND", "WRONG_CHAIN", "PRINCIPAL_MISMATCH", "BAD_SIGNATURE", "WRONG_DOMAIN", "UNSUPPORTED_VERSION", "UNSUPPORTED_SPEND_CAP", "NOT_YET_VALID", "EXPIRED", "SCOPE_DENIED", "CREDENTIAL_MISMATCH", "MANDATE_NOT_ANCHORED", "MANDATE_REVOKED", "MALFORMED", "INCONSISTENT_STATE"])
+	for (const r of ["VALID", "NOT_FOUND", "REVOKED", "UNLINKED", "PAUSED", "INVALID_ID", "UNTRUSTED_ISSUER", "NO_TRUSTED_ISSUER", "SUBJECT_MISMATCH", "WRONG_KIND", "WRONG_CHAIN", "PRINCIPAL_MISMATCH", "BAD_SIGNATURE", "WRONG_DOMAIN", "UNSUPPORTED_VERSION", "UNSUPPORTED_SPEND_CAP", "NOT_YET_VALID", "EXPIRED", "SCOPE_DENIED", "CREDENTIAL_MISMATCH", "MANDATE_NOT_ANCHORED", "MANDATE_REVOKED", "MALFORMED", "INCONSISTENT_STATE", "NOT_A_CREDENTIAL"])
 		assert.ok(reasons.has(r as never), `a vector expects ${r}`);
 	assert.ok(!JSON.stringify(committed).match(/priv/i), "no private key material in the file");
 	// A pause is its own result: every PAUSED vector carries no revoke reason.

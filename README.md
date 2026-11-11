@@ -10,7 +10,7 @@ This repository holds the draft specification, a reference verifier and the conf
 |---|---|---|
 | `spec/CAS-S1.md` | CAS-1 draft: credential, mandate (EIP-712), receipt, attestation, verify semantics, versioning, registry compatibility | CC-BY-4.0 (`spec/LICENSE`) |
 | `packages/verify-ts` | `@commertize/cas-verify`, a TypeScript reference verifier. No runtime dependencies, no key, read-only | Apache-2.0 |
-| `conformance/` | Verifier test vectors and the badge rule | vectors Apache-2.0, README CC-BY-4.0 |
+| `conformance/` | Verifier test vectors, receipt signature (secp256k1) vectors, and the badge rule | vectors Apache-2.0, README CC-BY-4.0 |
 
 The specification and code are provided as is, without warranty (see the licences). A relying party decides for itself whom to trust and what to allow; CAS results are inputs to that decision, not advice.
 

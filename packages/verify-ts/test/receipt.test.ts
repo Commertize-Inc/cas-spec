@@ -1,13 +1,54 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2026 Commertize, Inc.
-// Receipt signatures with the secp256k1 suite (spec section 5.1.1): the reference check. The vector file and its tests come with the generator.
+// Receipt signatures with the secp256k1 suite (spec section 5.1.1).
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bigToBytes32, concat, hexToBytes, utf8 } from "../src/hex.ts";
+import { readFileSync } from "node:fs";
+import { bigToBytes32, bytesToHex, hexToBytes } from "../src/hex.ts";
+import { addressOf, G, mul } from "../src/secp256k1.ts";
 import { base64urlEncode, receiptDigest, receiptMessage, RECEIPT_SIGNING_PREFIX, verifyReceiptSecp256k1, type AgentKeyCredential } from "../src/receipt.ts";
-import { randomHash, signDigest, throwawayKey } from "./helpers.ts";
-import { keccak256 } from "../src/keccak.ts";
+import { randomHash, signDigest, throwawayKey, withSeed } from "./helpers.ts";
+import { signRfc6979, type ReceiptVector } from "./receipt-vectors.ts";
+import { RECEIPT_VECTOR_FILE, RECEIPT_VECTOR_SEED, renderReceiptVectorFile } from "./vector-file.ts";
 
+const file = JSON.parse(readFileSync(RECEIPT_VECTOR_FILE, "utf8")) as { suite: string; note: string; vectors: ReceiptVector[] };
+
+test("receipt vectors: the committed file is a byte-identical regeneration from the public seed", () => {
+	assert.equal(readFileSync(RECEIPT_VECTOR_FILE, "utf8"), renderReceiptVectorFile());
+	assert.equal(file.suite, "cas-1.0-receipt-secp256k1");
+	assert.match(file.note, /throwaway test keys/);
+});
+
+test("receipt vectors: every case gives its expected result", () => {
+	for (const v of file.vectors) {
+		const r = verifyReceiptSecp256k1(v.hash, v.signature, v.agentKeys, v.anchor, v.paused);
+		assert.equal(r.valid, v.expected.valid, v.name);
+		assert.equal(r.reason, v.expected.reason, v.name);
+		if (v.expected.signer) assert.equal(r.signer, v.expected.signer, v.name);
+	}
+});
+
+test("receipt vectors: at least six valid vectors from distinct throwaway keys; each reproduces byte for byte (RFC 6979)", () => {
+	const valid = file.vectors.filter((v) => v.expected.valid);
+	assert.ok(valid.length >= 6);
+	assert.ok(new Set(valid.map((v) => v.keyIndex)).size >= 6);
+	// The keys are re-derived from the public seed: the n-th throwaway key of the seeded stream. The file holds none.
+	const keys = withSeed(RECEIPT_VECTOR_SEED, () => Array.from({ length: 6 }, () => throwawayKey()));
+	for (const v of valid) {
+		const priv = keys[v.keyIndex!]!.priv;
+		assert.equal(addressOf(mul(G, priv)), v.signature.key_id, v.name);
+		const message = new TextDecoder().decode(receiptMessage(v.hash));
+		assert.equal(message, RECEIPT_SIGNING_PREFIX + v.hash);
+		assert.equal(new TextEncoder().encode(message).length, 80);
+		assert.equal(bytesToHex(receiptDigest(v.hash)), v.digest);
+		const sig = signRfc6979(receiptDigest(v.hash), priv);
+		assert.equal(bytesToHex(sig), v.sigHex, v.name);
+		assert.equal(base64urlEncode(sig), v.signature.sig, v.name);
+		assert.equal(v.signature.sig.length, 87);
+	}
+	assert.ok(file.vectors.every((v) => !("throwawayTestPrivateKey" in v) && !/"priv/i.test(JSON.stringify(v))), "the file carries no private key");
+	assert.ok(file.vectors.filter((v) => !v.expected.valid).every((v) => v.keyIndex === undefined));
+});
 
 test("receipt signatures with fresh random keys and nonces on every run", () => {
 	for (let i = 0; i < 8; i++) {
@@ -34,7 +75,7 @@ test("base64urlEncode matches the platform encoder; decoding is strict", () => {
 	}
 	const k = throwawayKey();
 	const hash = "sha256:" + randomHash().slice(2);
-	const sig = base64urlEncode(hexToBytes(signDigest(receiptDigest(hash), k)));
+	const sig = base64urlEncode(signRfc6979(receiptDigest(hash), k.priv));
 	for (const bad of [sig + "=", sig.replace(/^./, "+"), sig.slice(0, -1), sig + "A"])
 		assert.equal(verifyReceiptSecp256k1(hash, { alg: "secp256k1", key_id: k.address.toLowerCase(), sig: bad }, issued(k.address), null, false).reason, "MALFORMED", bad);
 	assert.equal(bigToBytes32(1n).length, 32);
@@ -45,7 +86,7 @@ const issued = (address: string): AgentKeyCredential[] => [{ address, status: "I
 test("key state (step 5): a revoked or unlinked key's receipt is VALID only when anchored on chain strictly before the credential ended", () => {
 	const k = throwawayKey();
 	const hash = "sha256:" + randomHash().slice(2);
-	const s = { alg: "secp256k1", key_id: k.address.toLowerCase(), sig: base64urlEncode(hexToBytes(signDigest(receiptDigest(hash), k))) };
+	const s = { alg: "secp256k1", key_id: k.address.toLowerCase(), sig: base64urlEncode(signRfc6979(receiptDigest(hash), k.priv)) };
 	const ended = (status: "REVOKED" | "UNLINKED"): AgentKeyCredential[] => [{ address: k.address, status, issued: at(100), ended: at(200) }];
 	for (const st of ["REVOKED", "UNLINKED"] as const) {
 		assert.equal(verifyReceiptSecp256k1(hash, s, ended(st), at(199), false).reason, "VALID", st);
@@ -59,12 +100,19 @@ test("key state (step 5): a revoked or unlinked key's receipt is VALID only when
 	assert.equal(verifyReceiptSecp256k1(hash, s, [], null, false).reason, "SUBJECT_MISMATCH");
 });
 
+test("receipt vectors: rotation and revocation cases are present", () => {
+	const names = new Set(file.vectors.map((v) => v.name));
+	for (const n of ["rotated-old-key-anchored-before-revocation", "rotated-old-key-anchored-after-revocation", "rotated-old-key-not-anchored", "rotated-new-key", "revoked-key-not-anchored", "unlinked-key-anchored-after-unlink"])
+		assert.ok(names.has(n), n);
+	assert.ok(file.vectors.some((v) => v.expected.reason === "KEY_REVOKED"));
+});
+
 const at = (block: number, logIndex = 0) => ({ block, logIndex });
 
 test("key state: positions order by block then log index; earliest end counts; any credential in force wins; paused never VALID", () => {
 	const k = throwawayKey();
 	const hash = "sha256:" + randomHash().slice(2);
-	const s = { alg: "secp256k1", key_id: k.address.toLowerCase(), sig: base64urlEncode(hexToBytes(signDigest(receiptDigest(hash), k))) };
+	const s = { alg: "secp256k1", key_id: k.address.toLowerCase(), sig: base64urlEncode(signRfc6979(receiptDigest(hash), k.priv)) };
 	const revoked: AgentKeyCredential[] = [{ address: k.address, status: "REVOKED", issued: at(10), ended: at(20, 5) }];
 	assert.equal(verifyReceiptSecp256k1(hash, s, revoked, at(20, 4), false).reason, "VALID", "same block, earlier log");
 	assert.equal(verifyReceiptSecp256k1(hash, s, revoked, at(20, 5), false).reason, "KEY_REVOKED", "same log position");
@@ -82,31 +130,4 @@ test("key state: positions order by block then log index; earliest end counts; a
 	assert.equal(verifyReceiptSecp256k1(hash, s, issued(k.address), null, true).reason, "PAUSED");
 	assert.equal(verifyReceiptSecp256k1(hash, s, revoked, null, true).reason, "KEY_REVOKED", "revocation is reported while paused");
 	assert.equal(verifyReceiptSecp256k1(hash, s, [], null, true).reason, "SUBJECT_MISMATCH");
-});
-
-// Encoding rules pinned without the vector file (the generator PR adds the conformance vectors).
-test("encoding: the digest is EIP-191 over the 80-byte message, built independently here", () => {
-	const hash = "sha256:" + "0".repeat(64);
-	const m = utf8(RECEIPT_SIGNING_PREFIX + hash);
-	assert.equal(m.length, 80);
-	const expected = keccak256(concat(utf8("\x19Ethereum Signed Message:\n80"), m));
-	assert.deepEqual(receiptDigest(hash), expected);
-});
-
-test("encoding: alg, lowercase key_id, v 27/28 only and canonical base64url are enforced", () => {
-	const k = throwawayKey();
-	const hash = "sha256:" + randomHash().slice(2);
-	const raw = hexToBytes(signDigest(receiptDigest(hash), k));
-	const keys = [{ address: k.address, status: "ISSUED" as const, issued: { block: 0, logIndex: 0 }, ended: null }];
-	const good = { alg: "secp256k1", key_id: k.address.toLowerCase(), sig: base64urlEncode(raw) };
-	assert.equal(verifyReceiptSecp256k1(hash, good, keys, null, false).reason, "VALID");
-	assert.equal(verifyReceiptSecp256k1(hash, { ...good, alg: "ed25519" }, keys, null, false).reason, "MALFORMED");
-	const upper = "0x" + k.address.slice(2).toUpperCase();
-	assert.equal(verifyReceiptSecp256k1(hash, { ...good, key_id: upper }, keys, null, false).reason, "MALFORMED");
-	const v0 = new Uint8Array(raw);
-	v0[64] = raw[64]! - 27;
-	assert.equal(verifyReceiptSecp256k1(hash, { ...good, sig: base64urlEncode(v0) }, keys, null, false).reason, "BAD_SIGNATURE", "v as 0/1 is refused");
-	const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-	const nonCanonical = good.sig.slice(0, -1) + ALPHABET[ALPHABET.indexOf(good.sig.at(-1)!) ^ 1]!;
-	assert.equal(verifyReceiptSecp256k1(hash, { ...good, sig: nonCanonical }, keys, null, false).reason, "MALFORMED");
 });
