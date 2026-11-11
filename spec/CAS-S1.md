@@ -1,6 +1,6 @@
 # CAS-1: Commertize Agent Standard, version 1 (draft)
 
-Status: **draft for public review**, spec version `cas-1.0`. Nothing in this document is final until it is tagged `cas-1.0` in this repository. Editor: Commertize, Inc. Licence: CC-BY-4.0 (see `spec/LICENSE`).
+Status: **draft for public review**, spec version `cas-1.0`. Nothing in this document is final until it is tagged `cas-1.0` in this repository. Editor: Commertize, Inc. Licence: CC-BY-4.0 (see `LICENSE-SPEC`).
 
 Networks: the examples and conformance vectors in this draft use Base Sepolia (chain id 84532), a test network. No mainnet credential contract exists, and this repository publishes no contract address.
 
@@ -16,7 +16,7 @@ CAS is what a software agent shows before it acts on a real asset or on someone 
 
 An *attestation* is the issuer's public statement of the checks behind a credential class.
 
-Verification is open to anyone. It needs no key and no account, and it can run without contacting the issuer: the result is a deterministic function of chain state plus the mandate body. A hosted verification endpoint, where one exists, is a convenience and never the authority.
+Verification is open to anyone. It needs no key and no account, and it can run without contacting the issuer: the section 6 result is a deterministic function of chain state plus the mandate body. Receipt checks (section 5.1) also depend on the key sources a verifier trusts. A hosted verification endpoint, where one exists, is a convenience and never the authority.
 
 Out of scope: agent identity and discovery (CAS reads existing registries and agent cards and does not replace them), payment rails, custody of any asset or key, and any judgement about an agent's quality. A VALID result means only that the checks in section 6 passed at the block read. It is not an endorsement of the agent, the principal or any action.
 
@@ -169,9 +169,41 @@ Empty lists grant nothing: an action that names an asset class or a counterparty
 
 ### 5.1 Receipt
 
-A receipt is a signed, hash-linked record of one action under a mandate. CAS-1.0 adopts the CAS v0.1 receipt format published in `Commertize-Inc/commertize-agents` (`spec/cas/schemas/receipt.schema.json`): JCS-canonical JSON, a SHA-256 record hash, one or more signatures, and a `prev_hash` chain per mandate. For a CAS-1 mandate, `mandate_id` MUST be the mandate digest (`0x`-prefixed hex). A receipt MAY reference a payment proof or a venue's own signature in `evidence.refs`.
+A receipt is a signed, hash-linked record of one action under a mandate. CAS-1.0 adopts the CAS v0.1 receipt format: JCS-canonical JSON, a SHA-256 record hash, one or more signatures, and a `prev_hash` chain per mandate. **Status: the v0.1 format (its receipt schema and rules C-0 to C-2 and R-1 to R-3) is not yet published at a retrievable, pinned location. It is to be carried in this repository before `cas-1.0` is tagged. Until then the receipt rules in this section cannot be implemented independently, and no conformance mark covers them (section 10).** For a CAS-1 mandate, `mandate_id` MUST be the mandate digest as `0x`-prefixed lowercase hex. A receipt MAY reference a venue's own signature or other evidence in `evidence.refs`.
 
-A receipt is evidence of what the agent recorded. It is not a statement by the issuer.
+**What a receipt means (normative).** A receipt is its receipt signer's signed statement of what that signer observed. It is not proof that a payment is final, settled or irrevocable, that funds were available, or of the solvency or identity of any party, and it is not a register entry. Nor is it a statement that the action was lawful, authorised by anyone other than the mandate it cites, or suitable for any party. Its meaning is limited to its signer's signature and the on-chain or rail references it contains. A receipt signed by anyone other than Commertize, Inc. is not a statement of Commertize, Inc. A relying party that needs finality MUST check the referenced settlement itself; a receipt verifier's output is not that check. In this section "receipt signer" means the holder of a key that signed the receipt; it is not the Issuer of section 2.
+
+**Signer and signatures (normative).** The `signatures` property is outside the hashed body, so anyone holding a receipt can add or remove an entry without changing its hash. The agent's signature is the one that binds the receipt to the mandate. For CAS-1.0 it is the `signatures` entry with `alg` `secp256k1` whose `sig` decodes to 65 bytes `r || s || v` (`v` is 27 or 28, `s` at most half the curve order) and recovers, over the keccak-256 of the UTF-8 bytes of `"CAS-v0.1\n"` followed by the `hash` string, to the cited mandate's `agent`. Every other entry is a co-signature. A co-signature says nothing about the agent, and the agent's signature says nothing about which co-signatures are present.
+
+**Checks (normative).** A receipt verifier MUST report each check as a separate fact, with an identifier and one of three outcomes: `pass`, `fail` or `not_checked`. An error while running a check is `fail`. The following checks are required, and each MUST appear in the output:
+
+| Identifier | `pass` when |
+|---|---|
+| `schema` | the receipt is valid against the v0.1 receipt schema |
+| `record_hash` | `hash` equals the hash the verifier recomputes from the record (rule C-1) |
+| `signature` | every entry in `signatures` is a valid signature over the recomputed `hash` under a key the verifier obtained from a source it trusts; each entry is also reported as its own fact |
+| `signer_is_mandate_agent` | one entry meets the agent-signature rule above for the cited mandate |
+| `mandate_digest` | the verifier recomputed the cited mandate's digest (section 4) from the mandate body, and it equals `mandate_id` |
+
+A verifier MAY add other checks (for example `mandate_scope`, `mandate_window`, `anchor_state_at_block`, `chain_link`). A window check uses the receipt's `occurred_at`; an anchor or revocation check names the block it read.
+
+**Summary (normative).** A verifier MAY also report a summary. If it does, the summary MUST be a boolean named `all_reported_checks_passed`, MUST appear in the same output object as the checks, MUST list the identifiers of the checks it covers, and is true only if no reported check is `fail` and no required check is `not_checked`. It has no other meaning. A receipt verifier MUST NOT use `VALID` or any section 6 reason code for a receipt.
+
+A receipt verifier MUST NOT describe any check or summary, in a field name, a value or user-facing text, as paid, settled, final, cleared or irrevocable, or by any other term that asserts payment finality. CAS-1.0 mandates carry `spendCap = 0` and authorise no movement of value, so this version defines no settlement check.
+
+### 5.1.1 Fields that MUST NOT appear in a public receipt (normative)
+
+A public receipt is assumed to be permanent and copied (on-chain, in logs, in third-party caches). A public receipt MUST NOT contain:
+
+- natural-person names, email addresses, phone numbers, postal addresses, IP addresses or device identifiers;
+- government identity numbers, dates of birth, identity-check or business-check results, identity-provider applicant or case identifiers, or investor-status determinations;
+- bank account or routing numbers, payment card data, or ACH trace numbers tied to a person;
+- free-text memo fields, and prompt or conversation content from the agent's call;
+- precise geolocation, tax identifiers, or health, biometric or other special-category data;
+- holdings or positions in a security, or names or identifiers of private transactions or their sponsors;
+- API keys, session or bearer credentials, mandate secrets, or a spend policy that reveals business terms.
+
+A public receipt MAY contain pseudonymous key ids or addresses, salted hashes or commitments of private details (the salt MUST NOT be published with the receipt) (never an unsalted hash of an email address or other identifier), amounts and asset ids, timestamps, chain and transaction references, the mandate id and hash, and the receipt signer's signature. A wallet address can still be personal data once it is linked to a person; a receipt signer MUST NOT publish address-to-identity joins. Private details MAY travel in a separate envelope encrypted to the counterparty and linked to the public receipt by hash.
 
 ### 5.2 Attestation
 
@@ -248,4 +280,4 @@ CAS reads identity and discovery layers and does not duplicate them. This sectio
 
 ## 10. Reference implementation
 
-`packages/verify-ts` (`@commertize/cas-verify`, Apache-2.0) implements sections 3 to 6 with no runtime dependencies. `conformance/` holds the verifier test vectors.
+`packages/verify-ts` (`@commertize/cas-verify`, Apache-2.0) implements sections 3, 4 and 6 with no runtime dependencies. It does not verify receipts. `conformance/` holds the verifier test vectors. They cover section 6 only, so the "CAS-1 Conformant (verifier)" mark says nothing about receipts. Receipt conformance vectors are needed before `cas-1.0` is tagged, including: a summary over a partial check set, a required check left `not_checked`, a receipt signed by a key other than the mandate's agent, and one valid plus one invalid signature.
