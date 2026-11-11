@@ -8,9 +8,18 @@ This repository holds the draft specification, a reference verifier and the conf
 
 | Path | What it is | Licence |
 |---|---|---|
-| `spec/CAS-S1.md` | CAS-1 draft: credential, mandate (EIP-712), receipt, attestation, verify semantics, versioning, registry compatibility | CC-BY-4.0 (`spec/LICENSE`) |
+| `spec/CAS-S1.md` | CAS-1 draft: credential, mandate (EIP-712), receipt, attestation, verify semantics, versioning, registry compatibility | CC-BY-4.0 (`LICENSE-SPEC`) |
 | `packages/verify-ts` | `@commertize/cas-verify`, a TypeScript reference verifier. No runtime dependencies, no key, read-only | Apache-2.0 |
 | `conformance/` | Verifier test vectors and the badge rule | vectors Apache-2.0, README CC-BY-4.0 |
+
+## Licences
+
+| Paths | Licence |
+|---|---|
+| `packages/`, `scripts/`, `conformance/vectors/`, test generators, any `*.schema.json` | Apache-2.0 (`LICENSE`) |
+| Specification prose (`spec/*.md`), `conformance/README.md` and the other `*.md` documentation | CC BY 4.0 (`LICENSE-SPEC`) |
+
+Copyright, the patent non-assert for conforming implementations and the trademark policy are in `NOTICE`.
 
 The specification and code are provided as is, without warranty (see the licences). A relying party decides for itself whom to trust and what to allow; CAS results are inputs to that decision, not advice.
 
@@ -49,4 +58,6 @@ npm test
 
 Issues and pull requests are welcome; see `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md`. Report vulnerabilities privately as described in `SECURITY.md`.
 
-"Commertize", "Commertize Agent Standard" and the "CAS-1 Conformant" marks are trademarks of Commertize, Inc. No registration is claimed. See `NOTICE`.
+## Trademarks
+
+"Commertize", "Commertize Agent Standard" and the "CAS-1 Conformant" marks are trademarks of Commertize, Inc. No registration is claimed. The licences above grant no rights in these names or in any Commertize logo. An implementation that passes the published conformance vectors may say it is "Compatible with the Commertize Receipt and Mandate Format, draft cas-1.0", with that wording only, no logo and no implied endorsement. Any other claim made with a Commertize name needs a written agreement with Commertize, Inc. The full policy is in `NOTICE`, and the badge rule is in `conformance/README.md`.

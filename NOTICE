@@ -2,6 +2,16 @@ CAS: Commertize Agent Standard
 Copyright 2026 Commertize, Inc.
 
 This product includes software developed at Commertize, Inc.
-Code (packages/, scripts/, conformance/vectors/ and the conformance generator) is licensed under the Apache License 2.0 (LICENSE).
-Specification text and prose documentation (spec/, conformance/README.md and other *.md files) are licensed under CC-BY-4.0 (spec/LICENSE).
-"Commertize", "Commertize Agent Standard" and the "CAS-1 Conformant" marks are trademarks of Commertize, Inc. No registration is claimed. The licences in this repository grant no trademark rights; the only permitted use of the marks is the badge rule in conformance/README.md. Commertize may withdraw that permission from a project that misuses a mark.
+
+LICENCES
+Code, schemas, test vectors and the reference verifier (packages/, scripts/, conformance/vectors/, the conformance generator, and any *.schema.json file) are licensed under the Apache License 2.0 (LICENSE).
+Specification prose and prose documentation (spec/*.md, conformance/README.md and the other *.md files) are licensed under the Creative Commons Attribution 4.0 International licence, CC BY 4.0 (LICENSE-SPEC).
+
+PATENT NON-ASSERT [DRAFT WORDING, PENDING AXIOM REVIEW]
+Commertize, Inc. will not assert any patent claim it owns or controls, now or later, against any person for making, using, selling, offering for sale, importing or distributing an implementation, to the extent that implementation conforms to a published version of the specification in this repository. This commitment does not extend to any part of a product that does not implement the specification. It ends for any person, and that person's affiliates, who asserts a patent claim against any party alleging that a conforming implementation infringes. This paragraph does not change the Apache License 2.0 patent grant for the code in this repository.
+
+TRADEMARKS
+"Commertize" is a trademark of Commertize, Inc. "Commertize Agent Standard" and the "CAS-1 Conformant" marks are also trademarks of Commertize, Inc. No registration is claimed. Neither the Apache License 2.0 nor CC BY 4.0 grants any right in these names or in any Commertize logo.
+- Compatibility statements: anyone may state truthfully, without asking, that an implementation is "Compatible with the Commertize Receipt and Mandate Format, draft cas-1.0" (or the version it implements), provided it passes the published conformance vectors for that version. Use that wording only, use no logo, and do not imply that Commertize, Inc. sponsors, endorses or is affiliated with the implementation.
+- "Certified", or any similar claim made with a Commertize name, requires a written agreement with Commertize, Inc.
+- The badge rule for the "CAS-1 Conformant" marks is in conformance/README.md. Commertize, Inc. may withdraw permission from a project that misuses a mark.

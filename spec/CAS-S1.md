@@ -1,6 +1,6 @@
 # CAS-1: Commertize Agent Standard, version 1 (draft)
 
-Status: **draft for public review**, spec version `cas-1.0`. Nothing in this document is final until it is tagged `cas-1.0` in this repository. Editor: Commertize, Inc. Licence: CC-BY-4.0 (see `spec/LICENSE`).
+Status: **draft for public review**, spec version `cas-1.0`. Nothing in this document is final until it is tagged `cas-1.0` in this repository. Editor: Commertize, Inc. Licence: CC-BY-4.0 (see `LICENSE-SPEC`).
 
 Networks: the examples and conformance vectors in this draft use Base Sepolia (chain id 84532), a test network. No mainnet credential contract exists, and this repository publishes no contract address.
 
@@ -171,7 +171,23 @@ Empty lists grant nothing: an action that names an asset class or a counterparty
 
 A receipt is a signed, hash-linked record of one action under a mandate. CAS-1.0 adopts the CAS v0.1 receipt format published in `Commertize-Inc/commertize-agents` (`spec/cas/schemas/receipt.schema.json`): JCS-canonical JSON, a SHA-256 record hash, one or more signatures, and a `prev_hash` chain per mandate. For a CAS-1 mandate, `mandate_id` MUST be the mandate digest (`0x`-prefixed hex). A receipt MAY reference a payment proof or a venue's own signature in `evidence.refs`.
 
-A receipt is evidence of what the agent recorded. It is not a statement by the issuer.
+**What a receipt means (normative).** A receipt is its issuer's signed statement of what the issuer observed. It is not proof that a payment is final, settled or irrevocable, that funds were available, or of the solvency or identity of any party, and it is not a register entry. Its meaning is limited to its issuer's signature and the on-chain or rail references it contains. A receipt issued by anyone other than Commertize, Inc. is not a statement of Commertize, Inc. Where finality matters, a verifier MUST check the referenced settlement independently.
+
+A receipt verifier MUST report separate facts (for example: signature valid, schema valid, issuer key known, mandate within bounds and, only if it was checked, settlement reference observed at a stated block). It MUST NOT combine them into a single VALID or PAID result.
+
+### 5.1.1 Fields that MUST NOT appear in a public receipt (normative)
+
+A public receipt is assumed to be permanent and copied (on-chain, in logs, in third-party caches). A public receipt MUST NOT contain:
+
+- natural-person names, email addresses, phone numbers, postal addresses, IP addresses or device identifiers;
+- government identity numbers, dates of birth, identity-check or business-check results, identity-provider applicant identifiers, or investor-status determinations;
+- bank account or routing numbers, payment card data, or ACH trace numbers tied to a person;
+- free-text memo fields, and prompt or conversation content from the agent's call;
+- precise geolocation, tax identifiers, or health, biometric or other special-category data;
+- holdings or positions in a security, or the names of private transactions;
+- API keys, session secrets, mandate secrets, or a spend policy that reveals business terms.
+
+A public receipt MAY contain pseudonymous key ids or addresses, salted hashes or commitments of private details (never an unsalted hash of an email address or other identifier), amounts and asset ids, timestamps, chain and transaction references, the mandate id and hash, and the issuer's signature. A wallet address can still be personal data once it is linked to a person; an issuer MUST NOT publish address-to-identity joins. Private details MAY travel in a separate envelope encrypted to the counterparty and linked to the public receipt by hash.
 
 ### 5.2 Attestation
 
