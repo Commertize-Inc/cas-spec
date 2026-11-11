@@ -1,4 +1,4 @@
-# CAS-1: Commertize Agent Standard, version 1 (draft)
+# CAS-1: Commertize Agent Specification, version 1 (draft)
 
 Status: **draft for public review**, spec version `cas-1.0`. Nothing in this document is final until it is tagged `cas-1.0` in this repository. Editor: Commertize, Inc. Licence: CC-BY-4.0 (see `LICENSE-SPEC`).
 

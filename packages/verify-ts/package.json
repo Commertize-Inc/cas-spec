@@ -1,7 +1,7 @@
 {
 	"name": "@commertize/cas-verify",
 	"version": "0.1.0",
-	"description": "Reference verifier for CAS-1 (Commertize Agent Standard): credential status and signed mandates, live or offline. Read-only, no keys, no runtime dependencies.",
+	"description": "Reference verifier for CAS-1 (Commertize Agent Specification): credential status and signed mandates, live or offline. Read-only, no keys, no runtime dependencies.",
 	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",

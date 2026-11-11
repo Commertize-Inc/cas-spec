@@ -1,4 +1,4 @@
-# CAS: Commertize Agent Standard
+# CAS: Commertize Agent Specification
 
 > **DRAFT v0.** This is a working draft. Its text, data formats and verifier behaviour may change before a stable version; do not rely on it for production decisions.
 
@@ -60,4 +60,4 @@ Issues and pull requests are welcome; see `CONTRIBUTING.md` and `CODE_OF_CONDUCT
 
 ## Trademarks
 
-"Commertize", "Commertize Agent Standard" and the "CAS-1 Conformant" marks are trademarks of Commertize, Inc. No registration is claimed. The licences above grant no rights in these names or in any Commertize logo. An implementation that passes the published conformance vectors may say it is "compatible with CAS-1, version <v>", with that wording only, not in a product, company or domain name, no logo and no implied endorsement. Any other claim made with a Commertize name needs a written agreement with Commertize, Inc. The full policy is in `NOTICE`, and the badge rule is in `conformance/README.md`.
+"Commertize", "Commertize Agent Specification" and the "CAS-1 Conformant" marks are trademarks of Commertize, Inc. No registration is claimed. The licences above grant no rights in these names or in any Commertize logo. An implementation that passes the published conformance vectors may say it is "compatible with CAS-1, version <v>", with that wording only, not in a product, company or domain name, no logo and no implied endorsement. Any other claim made with a Commertize name needs a written agreement with Commertize, Inc. The full policy is in `NOTICE`, and the badge rule is in `conformance/README.md`.

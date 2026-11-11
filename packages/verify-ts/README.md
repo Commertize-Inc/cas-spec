@@ -1,6 +1,6 @@
 # @commertize/cas-verify
 
-Reference verifier for CAS-1 (Commertize Agent Standard, draft `cas-1.0`). It checks a credential's live status, and a principal-signed EIP-712 mandate's signature, window, scope and on-chain anchor.
+Reference verifier for CAS-1 (Commertize Agent Specification, draft `cas-1.0`). It checks a credential's live status, and a principal-signed EIP-712 mandate's signature, window, scope and on-chain anchor.
 
 - **Read-only.** It never signs, holds no key and sends no transaction. The only RPC methods it calls are `eth_chainId`, `eth_blockNumber`, `eth_getCode` and `eth_call`.
 - **Your provider, your issuers.** You pass any EIP-1193 provider and your own trusted-issuer list. It calls no Commertize service.
