@@ -40,7 +40,7 @@ A credential is a record in a credential contract, addressed by a 256-bit id:
 | Field | Type | Meaning |
 |---|---|---|
 | `subject` | address | The agent wallet. Never zero. |
-| `kind` | uint8 enum | `0 KYA_REGISTERED`, `1 TASK_MANDATE`, `2 WORK_ACCEPTED`, `3 ATTESTATION`. |
+| `kind` | uint8 enum | `0 KYA_REGISTERED`, `1 TASK_MANDATE`, `2 WORK_ACCEPTED`, `3 ATTESTATION`, `4 STATUS_REVOKED`, `5 STATUS_REINSTATED`. Kinds 4 and 5 record a status and confer nothing (section 3.2). |
 | `status` | uint8 enum | `0 NONE`, `1 ISSUED`, `2 REVOKED`, `3 UNLINKED`. |
 | `reason` | uint8 enum | Revocation reason (section 3.4). Meaningful only when `status` is `REVOKED`. |
 | `issuedAt` | uint64 | Block timestamp at issue. |
@@ -57,9 +57,21 @@ A credential is not transferable. There is no transfer function, no approval and
 | Write | Who | Effect |
 |---|---|---|
 | `issue(subject, kind, ref, contentHash)` | issuer role, only while not paused | `NONE` to `ISSUED`; emits `Issued`. |
+| `reinstate(oldSubject, newSubject, contentHash)` | issuer role, only while not paused | Issues `STATUS_REINSTATED` to `newSubject` with the opaque `ref = keccak256(enc("CAS-REINSTATE", oldSubject, contentHash))`, where `enc` is the standard Solidity argument encoding of `(string, address, bytes32)` (a 0x60 offset word, the address word, the content hash, then the string length word and its bytes right-padded to 32); `NONE` to `ISSUED`; emits `Issued` and `Reinstated`. Reverts with `StatusKindMisuse` unless `oldSubject` is revoked, `newSubject` is not revoked, and the two differ; with `ReinstatedAlready` if `oldSubject` was reinstated before (once per old address); with `SuccessorAlreadyUsed` if `newSubject` already succeeds another revoked address (one old per new, so two revoked histories never merge); with `SuccessorNotRegistered` unless `newSubject` already holds an `ISSUED` `KYA_REGISTERED` credential. |
 | `revoke(id, reason)` | issuer role, also while paused | `ISSUED` or `UNLINKED` to `REVOKED`; emits `Revoked`. Final. |
 | `unlink(id)` | the subject only, also while paused | `ISSUED` to `UNLINKED`; emits `Unlinked`. The holder can always walk away. |
 | `pause()` / `unpause()` | admin role | While paused no credential verifies as VALID and nothing can be issued. Revocation and unlinking still work and still read. |
+
+**Revoked subjects.** A subject is *revoked* when any of its `KYA_REGISTERED` credentials is `REVOKED`. Because revocation is final, this flag is monotone: once revoked, an address stays revoked.
+- A revoked subject receives no credential that confers standing, permission or reputation: no `KYA_REGISTERED`, `TASK_MANDATE`, `WORK_ACCEPTED`, or `ATTESTATION` (or any later kind that vouches for, grades or credits the subject).
+- Every issuer MUST read the subject's revoked flag (`kyaRevoked(subject)`, section 3.3) before any issue.
+- The credential contract MUST enforce this on chain: `issue(subject, kind, ref, contentHash)` MUST revert for a revoked subject and any of these kinds, whatever the `ref`.
+- The status kinds record the revocation and its outcome and confer nothing:
+  - `STATUS_REVOKED` (kind 4) is the only kind issuable to a revoked subject, and it is issuable only to one: `issue(subject, 4, ref, contentHash)` MUST revert unless `subject` is revoked.
+  - `STATUS_REINSTATED` (kind 5) is issued only by `reinstate(oldSubject, newSubject, contentHash)`, to the new address. Its `ref` is an opaque hash of the old address and the content hash, so the record itself does not name the old address. The `STATUS_REINSTATED` ref is `keccak256(enc("CAS-REINSTATE", oldSubject, contentHash))` and does not reveal the old address; readers and indexers MUST obtain the old address from the `Reinstated(id, newSubject, oldSubject)` event (section 3.3), never by deriving it from the ref. An old address is reinstated at most once, a new address succeeds at most one revoked address (`reinstatedTo` and `reinstatedFrom`, section 3.3, read the link both ways), and the new address MUST already hold an `ISSUED` `KYA_REGISTERED` credential: it registers through the normal flow first. `issue(subject, 5, ...)` MUST revert with `StatusKindMisuse`, as MUST `issue(subject, 4, ...)` for a subject that is not revoked.
+  - Neither is a credential for section 5 or section 6: a verifier MUST NOT treat either as standing, a permission or a vouch, and the result of `verify` is never `VALID` for one. Read as a credential, a status record gives `NOT_A_CREDENTIAL` (section 6.2), whatever kind was asked for. Read as a status, it is reported as a status record.
+- Reinstating an agent means rotation: the new address first receives its own `KYA_REGISTERED` credential, then `reinstate(revoked, new, contentHash)` records `STATUS_REINSTATED` on the new address and emits `Reinstated` linking it to the revoked one. The revoked address is never registered again. This also governs renewal: renewing a revoked agent is a rotation.
+- Work already in flight settles under its escrow terms, but no `WORK_ACCEPTED` credential is issued to a revoked subject. The rule is what stops a receipt signed while a key was revoked, and anchored after a re-issue, from passing its signature check under the later credential; the verifier alone cannot tell such a receipt apart. (Where one address holds several credentials, a verifier MUST still decide deterministically: an anchored receipt passes its signature check if it passes under any applicable credential, and it passes under a later credential only if it was anchored at or after that credential was issued, so every verifier reading the same state reaches the same result; laundering is possible only in the state this rule forbids.)
 
 CAS-1.0 credentials carry no expiry field. A credential whose underlying checks lapse is revoked with `KYA_LAPSED`. Time limits on what an agent may do live in the mandate window (section 4).
 
@@ -69,7 +81,10 @@ A credential contract MUST expose these view functions (Solidity signatures; sel
 
 ```
 function status(uint256 id) view returns (uint8)
-function isValid(uint256 id) view returns (bool)          // true iff not paused and status == ISSUED
+function isValid(uint256 id) view returns (bool)          // true iff not paused, status == ISSUED, and kind is not 4 or 5
+function kyaRevoked(address subject) view returns (bool)  // true iff any KYA_REGISTERED credential of subject is REVOKED (section 3.2)
+function reinstatedTo(address oldSubject) view returns (address)    // the successor of oldSubject; zero when unset
+function reinstatedFrom(address newSubject) view returns (address)  // the revoked address newSubject succeeds; zero when unset
 function paused() view returns (bool)
 function credential(uint256 id) view returns ((address subject, uint8 kind, uint8 status, uint8 reason,
                                                 uint64 issuedAt, address issuer, bytes32 ref, bytes32 contentHash))
@@ -82,9 +97,21 @@ And these events:
 event Issued(uint256 indexed id, address indexed subject, uint8 indexed kind, bytes32 ref, bytes32 contentHash, address issuer)
 event Revoked(uint256 indexed id, address indexed subject, uint8 reason, address by)
 event Unlinked(uint256 indexed id, address indexed subject)
+event Reinstated(uint256 indexed id, address indexed newSubject, address indexed oldSubject)
 ```
 
-`isValid` is the single source of truth for validity. The other reads exist so a verifier can explain a failure and can detect a contract whose reads disagree (section 6.2, `INCONSISTENT_STATE`).
+The `Reinstated` event carries addresses and the id only, never a reason or any data about the principal.
+
+And these errors, among others (the remaining errors are implementation-defined):
+
+```
+error StatusKindMisuse(address subject, uint8 kind)   // a status kind outside the rules of section 3.2
+error ReinstatedAlready(address oldSubject)           // oldSubject was already reinstated
+error SuccessorNotRegistered(address newSubject)      // newSubject holds no ISSUED KYA_REGISTERED credential
+error SuccessorAlreadyUsed(address newSubject)        // newSubject already succeeds another revoked address
+```
+
+`isValid` is the single source of truth for validity. It is false for a status record (kinds 4 and 5) even when issued, so `isValid(id) && subject == caller` never admits a revoked agent through its own `STATUS_REVOKED` record. That check still accepts any kind 0 to 3: a consumer that needs KYA standing MUST also check that the record's kind is `KYA_REGISTERED` (0). `kyaRevoked(subject)` is the revoked flag of section 3.2, the read every issuer makes before an issue. The other reads exist so a verifier can explain a failure and can detect a contract whose reads disagree (section 6.2, `INCONSISTENT_STATE`).
 
 ### 3.4 Revocation reasons
 
@@ -190,7 +217,7 @@ An attestation is a credential of kind `ATTESTATION` whose `subject` is the issu
 ### 6.2 Steps
 
 1. **Chain.** The provider's chain id MUST equal the expected chain (`WRONG_CHAIN`), and the contract MUST have code (`NO_CONTRACT`). Every read in one verification uses one pinned block number.
-2. **Credential.** Read `credential(id)`, `paused()`, `isValid(id)` and `status(id)`. If they disagree, or any word is out of range, the result is `INCONSISTENT_STATE`. Then, in order: `NONE` gives `NOT_FOUND`; a record whose `idFor(subject, kind, ref)` is not the id it was read under gives `INVALID_ID`; `REVOKED` gives `REVOKED` with the reason; `UNLINKED` gives `UNLINKED`; an issuer outside the trusted set gives `UNTRUSTED_ISSUER`; another subject gives `SUBJECT_MISMATCH`; a kind other than `KYA_REGISTERED` gives `WRONG_KIND`; a paused contract gives `PAUSED`. Revocation is reported even while paused. `PAUSED` is its own result and is never reported as `REVOKED`: a pause is an incident on the contract, a revocation is a decision about one credential, and an integrator MUST be able to tell them apart. A pause carries no revocation reason.
+2. **Credential.** Read `credential(id)`, `paused()`, `isValid(id)` and `status(id)`. If they disagree, or any word is out of range, the result is `INCONSISTENT_STATE`. Then, in order: `NONE` gives `NOT_FOUND`; a record whose `idFor(subject, kind, ref)` is not the id it was read under gives `INVALID_ID`; a record of a status kind (`STATUS_REVOKED`, `STATUS_REINSTATED`) gives `NOT_A_CREDENTIAL`, before revocation, trust, subject and kind are judged, so a status record is never `VALID` and never reads as a revoked credential; `REVOKED` gives `REVOKED` with the reason; `UNLINKED` gives `UNLINKED`; an issuer outside the trusted set gives `UNTRUSTED_ISSUER`; another subject gives `SUBJECT_MISMATCH`; a kind other than `KYA_REGISTERED` gives `WRONG_KIND`; a paused contract gives `PAUSED`. Revocation is reported even while paused. `PAUSED` is its own result and is never reported as `REVOKED`: a pause is an incident on the contract, a revocation is a decision about one credential, and an integrator MUST be able to tell them apart. A pause carries no revocation reason.
 3. **Mandate** (if given): type and schema (`UNSUPPORTED_VERSION`), shape (`MALFORMED`), domain (`WRONG_DOMAIN`), signature (`BAD_SIGNATURE`, `PRINCIPAL_MISMATCH`), `agent` equals the subject (`SUBJECT_MISMATCH`), `spendCap` is 0 (`UNSUPPORTED_SPEND_CAP`), window (`NOT_YET_VALID`, `EXPIRED`), scope (`SCOPE_DENIED`), and `credentialId` equals the credential verified in step 2 (`CREDENTIAL_MISMATCH`).
 4. **Anchor** (if a mandate is given): verify `idFor(agent, 1, digest)` as in step 2, with kind `TASK_MANDATE`. `NOT_FOUND` gives `MANDATE_NOT_ANCHORED`; `REVOKED` or `UNLINKED` gives `MANDATE_REVOKED`; other failures pass through. The anchor's `ref` MUST equal the digest.
 
@@ -206,7 +233,7 @@ A snapshot is `{ spec, chainId, contract, blockNumber, paused, credentials }`, w
 
 ### 6.5 Reason codes
 
-`VALID`, `MALFORMED`, `NO_TRUSTED_ISSUER`, `PROVIDER_ERROR`, `WRONG_CHAIN`, `NO_CONTRACT`, `INCONSISTENT_STATE`, `NOT_FOUND`, `REVOKED`, `UNLINKED`, `UNTRUSTED_ISSUER`, `SUBJECT_MISMATCH`, `WRONG_KIND`, `PAUSED`, `INVALID_ID`, `UNSUPPORTED_VERSION`, `WRONG_DOMAIN`, `BAD_SIGNATURE`, `PRINCIPAL_MISMATCH`, `UNSUPPORTED_SPEND_CAP`, `NOT_YET_VALID`, `EXPIRED`, `SCOPE_DENIED`, `CREDENTIAL_MISMATCH`, `MANDATE_NOT_ANCHORED`, `MANDATE_REVOKED`.
+`VALID`, `MALFORMED`, `NO_TRUSTED_ISSUER`, `PROVIDER_ERROR`, `WRONG_CHAIN`, `NO_CONTRACT`, `INCONSISTENT_STATE`, `NOT_FOUND`, `REVOKED`, `UNLINKED`, `UNTRUSTED_ISSUER`, `SUBJECT_MISMATCH`, `WRONG_KIND`, `PAUSED`, `INVALID_ID`, `UNSUPPORTED_VERSION`, `WRONG_DOMAIN`, `BAD_SIGNATURE`, `PRINCIPAL_MISMATCH`, `UNSUPPORTED_SPEND_CAP`, `NOT_YET_VALID`, `EXPIRED`, `SCOPE_DENIED`, `CREDENTIAL_MISMATCH`, `MANDATE_NOT_ANCHORED`, `MANDATE_REVOKED`, `NOT_A_CREDENTIAL` (a status record read as a credential, sections 3.2 and 6.2).
 
 ## 7. Compatibility with agent registries and agent cards (informative)
 
